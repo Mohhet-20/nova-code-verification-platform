@@ -1,0 +1,64 @@
+# Python
+.venv/
+venv/
+env/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+.coverage
+htmlcov/
+*.egg-info/
+
+# Node / frontend
+node_modules/
+frontend/dist/
+frontend/node_modules/.tmp/
+*.tsbuildinfo
+.vite/
+coverage/
+
+# Local data (databases, indexes, generated artifacts)
+backend/data/
+*.db
+*.sqlite
+*.sqlite3
+*.db-journal
+*.db-wal
+*.db-shm
+data/
+.nova/
+
+# Secrets and local configuration
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.p12
+*.pfx
+secrets.*
+credentials.*
+# ...but not Python modules that merely have that name (NOVA's app/security/secrets.py and integrations/secrets.py are source code)
+!secrets.py
+!credentials.py
+
+# Logs
+*.log
+logs/
+
+# Build output / OS / editors
+build/
+dist/
+out/
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.swp
+
+# Deployment secrets and state
+deployment/production.env
+*.migrate.lock
+backups/

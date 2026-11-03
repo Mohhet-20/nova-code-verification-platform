@@ -1,0 +1,14 @@
+# TLS termination for NOVA (used by docker-compose.tls.yml). Caddy obtains and renews certificates automatically.
+{$NOVA_DOMAIN} {
+	encode zstd gzip
+	header {
+		Strict-Transport-Security "max-age=31536000; includeSubDomains"
+		-Server
+	}
+	request_body {
+		max_size 10MB
+	}
+	# Caddy sets X-Forwarded-For to the browser's address; nginx trusts it only from private (compose network) peers and passes it on,
+	# so per-client auth throttling and logs see the real client. See ARCHITECTURE_AND_NETWORKING.md "Client addresses".
+	reverse_proxy web:8080
+}

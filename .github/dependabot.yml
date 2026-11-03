@@ -1,0 +1,21 @@
+# Weekly dependency update pull requests. Each one runs the full CI (including the container build and smoke test) before it can be merged.
+# Major version bumps are grouped separately so they are reviewed deliberately rather than merged with routine patches.
+version: 2
+updates:
+  - package-ecosystem: pip
+    directory: /backend
+    schedule: { interval: weekly }
+    open-pull-requests-limit: 5
+    groups:
+      minor-and-patch: { update-types: [minor, patch] }
+  - package-ecosystem: npm
+    directory: /frontend
+    schedule: { interval: weekly }
+    open-pull-requests-limit: 5
+    groups:
+      minor-and-patch: { update-types: [minor, patch] }
+  - package-ecosystem: github-actions
+    directory: /
+    schedule: { interval: monthly }
+# Base images are pinned by tag and digest through Dockerfile ARGs, which Dependabot cannot follow; update them with the
+# procedure in docs/operations/RELEASE_CHECKLIST.md ("Updating pinned images").

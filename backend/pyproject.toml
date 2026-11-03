@@ -1,0 +1,21 @@
+[project]
+name = "nova-backend"
+version = "0.19.0"
+description = "NOVA - AI Software Engineering and Verification Platform (backend)"
+requires-python = ">=3.11"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q -p no:cacheprovider"
+
+[tool.ruff]
+line-length = 110
+target-version = "py311"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B", "UP", "S"]
+ignore = ["S101", "E501", "B008"]
+
+[tool.ruff.lint.per-file-ignores]
+"tests/*" = ["S", "B"]
+"migrations/*" = ["E501"]

@@ -1,0 +1,21 @@
+# Keep secrets, local data, caches and tests out of the build context and image.
+.env
+.env.*
+!.env.example
+data/
+**/__pycache__/
+*.py[cod]
+.pytest_cache/
+.ruff_cache/
+.venv/
+venv/
+tests/
+benchmarks/
+*.db
+*.sqlite
+*.sqlite3
+*.db-*
+.git/
+.github/
+*.md
+requirements-dev.txt

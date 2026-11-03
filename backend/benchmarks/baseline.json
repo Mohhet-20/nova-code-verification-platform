@@ -1,0 +1,340 @@
+{
+ "results": {
+  "api_cycles|path=/dependencies/cycles,profile=medium|fixture=1:2379e9deed2ef8b8|bench=1": {
+   "environment": {
+    "cpu_count": 2,
+    "implementation": "CPython",
+    "kind": "synthetic_benchmark",
+    "machine": "x86_64",
+    "platform": "Linux",
+    "python": "3.12.14",
+    "sqlite": "3.53.1"
+   },
+   "mad_ms": 0.08687799981998978,
+   "median_ms": 5.120904999785125,
+   "n": 5
+  },
+  "api_cycles|path=/dependencies/cycles,profile=small|fixture=1:f105e3d1d0fc4888|bench=1": {
+   "environment": {
+    "cpu_count": 2,
+    "implementation": "CPython",
+    "kind": "synthetic_benchmark",
+    "machine": "x86_64",
+    "platform": "Linux",
+    "python": "3.12.14",
+    "sqlite": "3.53.1"
+   },
+   "mad_ms": 1.4275100002123509,
+   "median_ms": 6.263880999540561,
+   "n": 5
+  },
+  "api_dependents|path=/files/{id}/dependents,profile=medium|fixture=1:2379e9deed2ef8b8|bench=1": {
+   "environment": {
+    "cpu_count": 2,
+    "implementation": "CPython",
+    "kind": "synthetic_benchmark",
+    "machine": "x86_64",
+    "platform": "Linux",
+    "python": "3.12.14",
+    "sqlite": "3.53.1"
+   },
+   "mad_ms": 0.11862700011988636,
+   "median_ms": 4.37439999950584,
+   "n": 5
+  },
+  "api_dependents|path=/files/{id}/dependents,profile=small|fixture=1:f105e3d1d0fc4888|bench=1": {
+   "environment": {
+    "cpu_count": 2,
+    "implementation": "CPython",
+    "kind": "synthetic_benchmark",
+    "machine": "x86_64",
+    "platform": "Linux",
+    "python": "3.12.14",
+    "sqlite": "3.53.1"
+   },
+   "mad_ms": 0.5984420004097046,
+   "median_ms": 4.745262000142247,
+   "n": 5
+  },
+  "api_file_detail|path=/files/{id},profile=medium|fixture=1:2379e9deed2ef8b8|bench=1": {
+   "environment": {
+    "cpu_count": 2,
+    "implementation": "CPython",
+    "kind": "synthetic_benchmark",
+    "machine": "x86_64",
+    "platform": "Linux",
+    "python": "3.12.14",
+    "sqlite": "3.53.1"
+   },
+   "mad_ms": 0.3190809993611765,
+   "median_ms": 3.807621999840194,
+   "n": 5
+  },
+  "api_file_detail|path=/files/{id},profile=small|fixture=1:f105e3d1d0fc4888|bench=1": {
+   "environment": {
+    "cpu_count": 2,
+    "implementation": "CPython",
+    "kind": "synthetic_benchmark",
+    "machine": "x86_64",
+    "platform": "Linux",
+    "python": "3.12.14",
+    "sqlite": "3.53.1"
+   },
+   "mad_ms": 0.12668100043811137,
+   "median_ms": 3.7364259997048066,
+   "n": 5
+  },
+  "api_files_list|path=/files,profile=medium|fixture=1:2379e9deed2ef8b8|bench=1": {
+   "environment": {
+    "cpu_count": 2,
+    "implementation": "CPython",
+    "kind": "synthetic_benchmark",
+    "machine": "x86_64",
+    "platform": "Linux",
+    "python": "3.12.14",
+    "sqlite": "3.53.1"
+   },
+   "mad_ms": 0.24285099880216876,
+   "median_ms": 5.982342000606877,
+   "n": 5
+  },
+  "api_files_list|path=/files,profile=small|fixture=1:f105e3d1d0fc4888|bench=1": {
+   "environment": {
+    "cpu_count": 2,
+    "implementation": "CPython",
+    "kind": "synthetic_benchmark",
+    "machine": "x86_64",
+    "platform": "Linux",
+    "python": "3.12.14",
+    "sqlite": "3.53.1"
+   },
+   "mad_ms": 0.2412610001556459,
+   "median_ms": 4.339840000284312,
+   "n": 5
+  },
+  "api_impact|path=/dependencies/impact,profile=medium|fixture=1:2379e9deed2ef8b8|bench=1": {
+   "environment": {
+    "cpu_count": 2,
+    "implementation": "CPython",
+    "kind": "synthetic_benchmark",
+    "machine": "x86_64",
+    "platform": "Linux",
+    "python": "3.12.14",
+    "sqlite": "3.53.1"
+   },
+   "mad_ms": 0.09735699950397247,
+   "median_ms": 5.563416999393667,
+   "n": 5
+  },
+  "api_impact|path=/dependencies/impact,profile=small|fixture=1:f105e3d1d0fc4888|bench=1": {
+   "environment": {
+    "cpu_count": 2,
+    "implementation": "CPython",
+    "kind": "synthetic_benchmark",
+    "machine": "x86_64",
+    "platform": "Linux",
+    "python": "3.12.14",
+    "sqlite": "3.53.1"
+   },
+   "mad_ms": 0.18319599985261448,
+   "median_ms": 5.7627249998404295,
+   "n": 5
+  },
+  "api_summary|path=/summary,profile=medium|fixture=1:2379e9deed2ef8b8|bench=1": {
+   "environment": {
+    "cpu_count": 2,
+    "implementation": "CPython",
+    "kind": "synthetic_benchmark",
+    "machine": "x86_64",
+    "platform": "Linux",
+    "python": "3.12.14",
+    "sqlite": "3.53.1"
+   },
+   "mad_ms": 0.0953049993768218,
+   "median_ms": 4.179726000074879,
+   "n": 5
+  },
+  "api_summary|path=/summary,profile=small|fixture=1:f105e3d1d0fc4888|bench=1": {
+   "environment": {
+    "cpu_count": 2,
+    "implementation": "CPython",
+    "kind": "synthetic_benchmark",
+    "machine": "x86_64",
+    "platform": "Linux",
+    "python": "3.12.14",
+    "sqlite": "3.53.1"
+   },
+   "mad_ms": 0.060772999859182164,
+   "median_ms": 3.537812000104168,
+   "n": 5
+  },
+  "api_symbols_search|path=/symbols/search,profile=medium|fixture=1:2379e9deed2ef8b8|bench=1": {
+   "environment": {
+    "cpu_count": 2,
+    "implementation": "CPython",
+    "kind": "synthetic_benchmark",
+    "machine": "x86_64",
+    "platform": "Linux",
+    "python": "3.12.14",
+    "sqlite": "3.53.1"
+   },
+   "mad_ms": 0.6040550006218837,
+   "median_ms": 6.913470999279525,
+   "n": 5
+  },
+  "api_symbols_search|path=/symbols/search,profile=small|fixture=1:f105e3d1d0fc4888|bench=1": {
+   "environment": {
+    "cpu_count": 2,
+    "implementation": "CPython",
+    "kind": "synthetic_benchmark",
+    "machine": "x86_64",
+    "platform": "Linux",
+    "python": "3.12.14",
+    "sqlite": "3.53.1"
+   },
+   "mad_ms": 0.2295929998581414,
+   "median_ms": 4.7118299999056035,
+   "n": 5
+  },
+  "index_full|profile=medium|fixture=1:2379e9deed2ef8b8|bench=1": {
+   "environment": {
+    "cpu_count": 2,
+    "implementation": "CPython",
+    "kind": "synthetic_benchmark",
+    "machine": "x86_64",
+    "platform": "Linux",
+    "python": "3.12.14",
+    "sqlite": "3.53.1"
+   },
+   "mad_ms": 9.549296999466605,
+   "median_ms": 407.9110579996268,
+   "n": 5
+  },
+  "index_full|profile=small|fixture=1:f105e3d1d0fc4888|bench=1": {
+   "environment": {
+    "cpu_count": 2,
+    "implementation": "CPython",
+    "kind": "synthetic_benchmark",
+    "machine": "x86_64",
+    "platform": "Linux",
+    "python": "3.12.14",
+    "sqlite": "3.53.1"
+   },
+   "mad_ms": 0.7896720007920521,
+   "median_ms": 55.67562699980044,
+   "n": 5
+  },
+  "index_incremental_noop|profile=medium|fixture=1:2379e9deed2ef8b8|bench=1": {
+   "environment": {
+    "cpu_count": 2,
+    "implementation": "CPython",
+    "kind": "synthetic_benchmark",
+    "machine": "x86_64",
+    "platform": "Linux",
+    "python": "3.12.14",
+    "sqlite": "3.53.1"
+   },
+   "mad_ms": 11.751299999559706,
+   "median_ms": 309.0504649999275,
+   "n": 5
+  },
+  "index_incremental_noop|profile=small|fixture=1:f105e3d1d0fc4888|bench=1": {
+   "environment": {
+    "cpu_count": 2,
+    "implementation": "CPython",
+    "kind": "synthetic_benchmark",
+    "machine": "x86_64",
+    "platform": "Linux",
+    "python": "3.12.14",
+    "sqlite": "3.53.1"
+   },
+   "mad_ms": 1.6822709994812612,
+   "median_ms": 48.20316199948138,
+   "n": 5
+  },
+  "index_incremental_one_change|changed_files=1,profile=medium|fixture=1:2379e9deed2ef8b8|bench=1": {
+   "environment": {
+    "cpu_count": 2,
+    "implementation": "CPython",
+    "kind": "synthetic_benchmark",
+    "machine": "x86_64",
+    "platform": "Linux",
+    "python": "3.12.14",
+    "sqlite": "3.53.1"
+   },
+   "mad_ms": 4.045719000714598,
+   "median_ms": 322.73188099952677,
+   "n": 5
+  },
+  "index_incremental_one_change|changed_files=1,profile=small|fixture=1:f105e3d1d0fc4888|bench=1": {
+   "environment": {
+    "cpu_count": 2,
+    "implementation": "CPython",
+    "kind": "synthetic_benchmark",
+    "machine": "x86_64",
+    "platform": "Linux",
+    "python": "3.12.14",
+    "sqlite": "3.53.1"
+   },
+   "mad_ms": 2.6768780007841997,
+   "median_ms": 52.021379000507295,
+   "n": 5
+  },
+  "security_scan|profile=medium,scan_types=dependencies+code+secrets|fixture=1:2379e9deed2ef8b8|bench=1": {
+   "environment": {
+    "cpu_count": 2,
+    "implementation": "CPython",
+    "kind": "synthetic_benchmark",
+    "machine": "x86_64",
+    "platform": "Linux",
+    "python": "3.12.14",
+    "sqlite": "3.53.1"
+   },
+   "mad_ms": 11.889519999385811,
+   "median_ms": 469.70890299962775,
+   "n": 5
+  },
+  "security_scan|profile=small,scan_types=dependencies+code+secrets|fixture=1:f105e3d1d0fc4888|bench=1": {
+   "environment": {
+    "cpu_count": 2,
+    "implementation": "CPython",
+    "kind": "synthetic_benchmark",
+    "machine": "x86_64",
+    "platform": "Linux",
+    "python": "3.12.14",
+    "sqlite": "3.53.1"
+   },
+   "mad_ms": 0.831812000797072,
+   "median_ms": 65.9065420004481,
+   "n": 5
+  },
+  "static_analysis_full|profile=medium|fixture=1:2379e9deed2ef8b8|bench=1": {
+   "environment": {
+    "cpu_count": 2,
+    "implementation": "CPython",
+    "kind": "synthetic_benchmark",
+    "machine": "x86_64",
+    "platform": "Linux",
+    "python": "3.12.14",
+    "sqlite": "3.53.1"
+   },
+   "mad_ms": 5.6426629998895805,
+   "median_ms": 834.5192589995349,
+   "n": 5
+  },
+  "static_analysis_full|profile=small|fixture=1:f105e3d1d0fc4888|bench=1": {
+   "environment": {
+    "cpu_count": 2,
+    "implementation": "CPython",
+    "kind": "synthetic_benchmark",
+    "machine": "x86_64",
+    "platform": "Linux",
+    "python": "3.12.14",
+    "sqlite": "3.53.1"
+   },
+   "mad_ms": 1.372014999105886,
+   "median_ms": 84.31787999961671,
+   "n": 5
+  }
+ }
+}

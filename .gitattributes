@@ -1,0 +1,4 @@
+# Normalise text files to LF in the repository.
+* text=auto eol=lf
+*.png binary
+*.ico binary
