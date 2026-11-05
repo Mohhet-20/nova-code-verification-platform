@@ -804,3 +804,15 @@ def test_audit_trail_records_actions_without_secrets(art: Path, adv_dir: Path, c
     blob = json.dumps([e.details for e in events], default=str)
     assert FAKE_GH not in blob and FAKE_AWS not in blob and all(e.actor_user_id for e in events if e.action != "security.scan_completed")
     assert FAKE_GH not in everything(client, rid)  # the triage reason is scrubbed before it is stored
+
+
+def test_a_secret_repeated_in_one_file_is_one_finding_and_the_scan_completes(art: Path, client: TestClient, tmp_path: Path) -> None:  # noqa: F811
+    # Regression: identical value in the same file -> identical fingerprint; the second copy used to be inserted again and the
+    # unique constraint failed the whole scan (seen when NOVA scanned its own test suite).
+    rid, _ = project(client, tmp_path, {"conf.py": f"A = '{FAKE_GH}'\nB = '{FAKE_GH}'\n", "README.md": "# x\n"})
+    s = scan(client, rid, scan_types=["secrets"])
+    assert s["status"] == "completed", s.get("error")
+    hits = [f for f in findings(client, rid) if f["kind"] == "secret" and f["rel_path"] == "conf.py"]
+    assert len(hits) == 1 and hits[0]["line"] == 1
+    assert scan(client, rid, scan_types=["secrets"])["status"] == "completed"  # a rescan updates it, never duplicates
+    assert len([f for f in findings(client, rid) if f["kind"] == "secret" and f["rel_path"] == "conf.py"]) == 1

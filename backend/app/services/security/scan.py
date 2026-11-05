@@ -335,6 +335,12 @@ def _reconcile(db: Session, repo: Repository, scan: SecScan, cand: list[dict[str
                       "dependency": "dependencies" in ran and not any(r.startswith(("dependency", "advisory")) and "could not be assessed" not in r for r in reasons)}
     sups = [s for s in db.scalars(select(SecSuppression).where(SecSuppression.repository_id == repo.id, SecSuppression.revoked_at.is_(None)))
             if s.expires_at is None or _aware(s.expires_at) > _aware(now)]  # type: ignore[operator]
+    # One finding per fingerprint: the same secret value repeated in a file is a single finding, at its first occurrence.
+    # Without this the second candidate would be inserted again, hit the unique constraint and fail the whole scan.
+    unique: dict[str, dict[str, Any]] = {}
+    for c in cand:
+        unique.setdefault(c["fingerprint"], c)
+    cand = list(unique.values())
     existing = {f.fingerprint: f for f in db.scalars(select(SecFinding).where(SecFinding.repository_id == repo.id))}
     seen: list[str] = []
     suppressed_new: dict[str, int] = {}

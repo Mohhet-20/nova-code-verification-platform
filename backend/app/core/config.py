@@ -69,6 +69,9 @@ class Settings(BaseSettings):
     # Kill switch for every feature that runs repository code (approved test runs, debugging/repair/verification reruns). The runner is a
     # restricted subprocess under the API's own user, NOT a sandbox: disable it where registered repositories are not trusted.
     test_execution_enabled: bool = True
+    # Public demo: POST /auth/guest issues an engineer token for a shared guest account. Off by default; pair with
+    # test_execution_enabled=false so visitors cannot make the server run repository code.
+    guest_access_enabled: bool = False
     # Phase 06: debugging
     debug_max_report_bytes: int = 65_536
     debug_max_frames: int = 60

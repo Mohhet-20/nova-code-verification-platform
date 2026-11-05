@@ -16,6 +16,7 @@ from tests.test_governance import API, World, w  # noqa: F401 - `w` is the share
 # Operations that are intentionally reachable without the bearer token because they authenticate another way (HMAC signature) or are probes.
 PUBLIC = {
     ("GET", "/api/v1/health"), ("GET", "/api/v1/ready"),
+    ("POST", "/api/v1/auth/guest"),  # public-demo guest session; 404 unless NOVA_GUEST_ACCESS_ENABLED
 }
 SIGNATURE_AUTHENTICATED_PREFIXES = ("/api/v1/integrations/inbound", "/api/v1/cicd/webhooks", "/api/v1/webhooks")
 MUTATING = {"POST", "PUT", "PATCH", "DELETE"}

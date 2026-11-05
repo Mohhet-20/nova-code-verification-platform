@@ -1,7 +1,9 @@
+import { useSyncExternalStore } from "react";
 import { NavLink, Outlet } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
-import { api } from "../services/api";
+import { api, getStoredToken, isSignInRequired, signOut, subscribeSignIn } from "../services/api";
 import { cx } from "../components/ui";
+import { SignIn } from "./SignIn";
 
 const NAV = [
   { to: "/", label: "Overview", end: true },
@@ -16,6 +18,9 @@ const NAV = [
 export function Layout() {
   const ready = useQuery({ queryKey: ["ready"], queryFn: api.ready, refetchInterval: 30_000, retry: false });
   const state = ready.isPending ? "checking" : ready.isError ? "offline" : "online";
+  const needsSignIn = useSyncExternalStore(subscribeSignIn, isSignInRequired);
+  if (needsSignIn) return <SignIn />;
+  const signedIn = getStoredToken() !== "";
   return (
     <div className="flex min-h-full flex-col md:flex-row">
       <a href="#main" className="sr-only focus:not-sr-only focus:absolute focus:left-2 focus:top-2 focus:z-50 focus:rounded focus:bg-white focus:px-3 focus:py-2">
@@ -64,6 +69,11 @@ export function Layout() {
           <span aria-live="polite">
             API {state === "online" ? "ready" : state === "offline" ? "unavailable or not migrated" : "checking…"}
           </span>
+          {signedIn && (
+            <button type="button" onClick={signOut} className="ml-3 rounded px-2 py-1 font-medium text-slate-700 hover:bg-slate-100">
+              Sign out
+            </button>
+          )}
         </header>
         <main id="main" className="mx-auto w-full max-w-6xl flex-1 px-6 py-8">
           <Outlet />

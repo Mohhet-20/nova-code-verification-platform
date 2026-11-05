@@ -64,12 +64,12 @@ describe("code health workspace", () => {
     expect(screen.getAllByRole("button", { name: "Try again" }).length).toBeGreaterThan(0);
   });
 
-  it("points to Settings when the server rejects the request for a missing or expired token", { timeout: 12_000 }, async () => {
+  it("asks the visitor to sign in when the server rejects the request for a missing or expired token", { timeout: 12_000 }, async () => {
     mockApi({ ...base, [`GET ${BASE}/analysis/status`]: status(), [`GET ${BASE}/analysis/summary`]: summary(),
       [`GET ${BASE}/findings`]: { status: 401, body: { error: { code: "unauthorized", message: "A valid bearer token is required." } } } });
     renderApp(`${BASE}/health`);
-    expect((await screen.findAllByRole("alert", {}, { timeout: 8000 }))[0]).toHaveTextContent("A valid bearer token is required.");
-    expect(screen.getAllByRole("link", { name: "Enter it in Settings" })[0]).toHaveAttribute("href", "/settings");
+    expect(await screen.findByRole("heading", { name: "Sign in to NOVA" }, { timeout: 8000 })).toBeInTheDocument();
+    expect(screen.getByLabelText("Access key")).toHaveAttribute("type", "password");
   });
 
   it("shows warnings, rule errors and invalid configuration, and blocks running when the config is invalid", async () => {

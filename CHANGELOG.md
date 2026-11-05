@@ -2,6 +2,22 @@
 
 Format: [Keep a Changelog](https://keepachangelog.com/). Versions follow the phase roadmap, not semver releases.
 
+## [Unreleased] - 2026-11-05 - hosted demo
+
+### Added
+- Sign-in screen: the app shows it whenever the API refuses a request for lack of a valid token (missing, wrong, revoked, or a guest
+  token from before a demo restart, which is forgotten), and offers **Sign out**. Access keys are verified before they are stored.
+- `POST /api/v1/auth/guest` (off unless `NOVA_GUEST_ACCESS_ENABLED=true`): a personal `engineer` token for a shared guest account,
+  throttled per client address; never an owner. The sign-in screen offers it as *Explore the live demo* when built with
+  `VITE_GUEST_ACCESS=true`.
+- Hosted demo: `deploy/demo/Dockerfile`, `scripts/demo_build.py` (showcase analysed at build time), `scripts/demo_start.py` (fresh copy
+  on every start, production mode, test execution off), `render.yaml`, `frontend/vercel.json`.
+
+### Fixed
+- A security scan failed with `IntegrityError` when the same secret value appeared twice in one file: both candidates had the same
+  fingerprint and the second was inserted again. Candidates are now merged per fingerprint (first occurrence kept) before they are
+  stored. Found by scanning NOVA's own test suite; `test_a_secret_repeated_in_one_file_is_one_finding_and_the_scan_completes`.
+
 ## [Unreleased] - 2026-11-03 - publication pass
 
 ### Fixed

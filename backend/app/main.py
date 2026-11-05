@@ -10,6 +10,7 @@ from fastapi.middleware.cors import CORSMiddleware
 
 from app.api import (
     analysis,
+    auth,
     cicd,
     debugging,
     governance,
@@ -126,12 +127,14 @@ def create_app() -> FastAPI:
     app.add_middleware(SecurityHeadersMiddleware)
     install_error_handlers(app)
     app.state.auth_throttle = AuthFailureThrottle(settings.auth_failure_limit, settings.auth_failure_window_seconds)
+    app.state.guest_throttle = AuthFailureThrottle(20, 600)  # guest sessions started per client address per 10 minutes
 
     app.add_middleware(ObservabilityMiddleware)
     app.add_middleware(BodySizeLimitMiddleware, max_bytes=settings.max_request_body_bytes)
 
     api = APIRouter(prefix="/api/v1")
     api.include_router(health.router)
+    api.include_router(auth.router)
     api.include_router(ops.router)
     api.include_router(workspace.router)
     api.include_router(repositories.router)

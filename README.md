@@ -1,6 +1,6 @@
 # NOVA — Software Engineering & Verification Platform
 
-[![CI](https://github.com/GITHUB_OWNER/nova/actions/workflows/ci.yml/badge.svg)](https://github.com/GITHUB_OWNER/nova/actions/workflows/ci.yml)
+[![CI](https://github.com/Mohhet-20/nova-code-verification-platform/actions/workflows/ci.yml/badge.svg)](https://github.com/Mohhet-20/nova-code-verification-platform/actions/workflows/ci.yml)
 ![Python 3.11-3.13](https://img.shields.io/badge/python-3.11%E2%80%933.13-3776AB?logo=python&logoColor=white)
 ![FastAPI](https://img.shields.io/badge/FastAPI-009688?logo=fastapi&logoColor=white)
 ![React 19](https://img.shields.io/badge/React-19-61DAFB?logo=react&logoColor=black)
@@ -11,6 +11,9 @@
 A self-hosted platform that indexes your repositories, finds defects, reviews changes, proposes repairs — by deterministic rules or with
 **Claude** — and proves fixes with your tests. Its core rule: **nothing changes your code without validation, a human approval and
 verification**, whoever (or whatever) proposed the change.
+
+**Live demo: [nova-code-verification-platform.vercel.app](https://nova-code-verification-platform.vercel.app)** — choose
+*Explore the live demo* to open NOVA analysing its own backend (details in [Hosted demo](#hosted-demo)).
 
 ![Walkthrough: NOVA analysing its own backend - overview, code intelligence, code health, review, repair with Claude](docs/images/walkthrough.gif)
 
@@ -113,6 +116,26 @@ python scripts\make_sample_repo.py "$env:TEMP\nova-sample" --git
 ```
 Then in the UI: **Repositories → Register**, path `%TEMP%\nova-sample` → **Index** (10 files, with symbols for the Python and TypeScript files; the fake `.env`, `.pem`, ignored files,
 `node_modules` and binaries are skipped) → **Tasks → New task** (e.g. “Fix login validation in src/auth/login.py”) → review/edit the plan.
+
+## Hosted demo
+The [live demo](https://nova-code-verification-platform.vercel.app) is the production build on free hosting: the React app on Vercel,
+which proxies `/api/*` to the API on Render, so the browser only talks to its own origin.
+
+- **What you see:** NOVA's own backend source and test suite as a Git repository, already indexed, statically analysed, security scanned and
+  reviewed, with one uncommitted change for the review to assess (a bearer-token check that drops the constant-time comparison), an
+  ingested failure under investigation and a task. All of it is produced through the public API at image build time
+  ([scripts/demo_build.py](scripts/demo_build.py)), so a cold start takes seconds.
+- **How you sign in:** *Explore the live demo* calls `POST /api/v1/auth/guest`, which issues a personal token for a shared guest account
+  with the `engineer` role: it can browse everything, start analyses and reviews and draft repairs, but cannot manage members, teams or
+  policies. The endpoint is off unless `NOVA_GUEST_ACCESS_ENABLED=true`, is throttled per address, and never issues an owner token. The
+  owner signs in with the deployment's access key (`NOVA_API_TOKEN`, a hosting secret).
+- **What is switched off:** running repository tests (`NOVA_TEST_EXECUTION_ENABLED=false`), so no visitor can make the server execute
+  code, and AI-assisted proposals. The API runs with `NOVA_ENVIRONMENT=production`, so the startup guard enforces the rest.
+- **Reset:** every start copies the showcase afresh ([scripts/demo_start.py](scripts/demo_start.py)); the free instance sleeps when idle,
+  so the first request after a pause takes about a minute.
+
+Deploy files: [render.yaml](render.yaml), [deploy/demo/Dockerfile](deploy/demo/Dockerfile), [frontend/vercel.json](frontend/vercel.json).
+A real deployment uses [backend/Dockerfile](backend/Dockerfile) and [deployment/](deployment/) instead.
 
 ## Configuration
 Environment variables (prefix `NOVA_`) or `backend/.env`; see `.env.example`. Defaults work out of the box.

@@ -146,7 +146,38 @@ export function getStoredToken(): string {
   }
 }
 
+/** True once the API has refused a request for lack of a valid token; the layout then shows the sign-in screen. */
+let signInRequired = false;
+const signInListeners = new Set<() => void>();
+
+function setSignInRequired(value: boolean): void {
+  if (signInRequired === value) return;
+  signInRequired = value;
+  signInListeners.forEach((listener) => listener());
+}
+
+export function isSignInRequired(): boolean {
+  return signInRequired;
+}
+
+export function subscribeSignIn(listener: () => void): () => void {
+  signInListeners.add(listener);
+  return () => signInListeners.delete(listener);
+}
+
+/** Forget the stored token and return to the sign-in screen. */
+export function signOut(): void {
+  setStoredToken("");
+  setSignInRequired(true);
+}
+
+/** Build-time switch for the hosted demo: the sign-in screen offers a guest session (POST /auth/guest). */
+export function guestAccessEnabled(): boolean {
+  return import.meta.env.VITE_GUEST_ACCESS === "true";
+}
+
 export function setStoredToken(token: string): void {
+  if (token) setSignInRequired(false);
   try {
     if (token) sessionStorage.setItem(TOKEN_KEY, token);
     else sessionStorage.removeItem(TOKEN_KEY);
@@ -177,6 +208,11 @@ export async function request<T>(path: string, init: RequestInit = {}): Promise<
     } catch {
       body = null;
     }
+  }
+  if (response.status === 401) {
+    // Missing, wrong, revoked or expired token (a hosted demo restart invalidates guest tokens): forget it and ask to sign in.
+    if (token) setStoredToken("");
+    setSignInRequired(true);
   }
   if (!response.ok) {
     const err = (body as { error?: { code?: string; message?: string; details?: unknown } } | null)
@@ -336,6 +372,9 @@ export const api = {
   reviewRecommendations: (id: string, rid: string) => request<ReviewRecommendations>(`/repositories/${id}/reviews/${rid}/test-recommendations${qs({ page_size: 50 })}`),
   workspace: () => request<WorkspaceContext>("/workspace"),
   overview: () => request<Overview>("/overview"),
+  /** Check an access key without storing it (no token is stored while the sign-in screen is shown). */
+  verifyKey: (key: string) => request<WorkspaceContext>("/workspace", { headers: { Authorization: `Bearer ${key}` } }),
+  guestSession: () => request<{ token: string; role: string; handle: string }>("/auth/guest", { method: "POST" }),
   ready: () => request<{ status: string; checks: Record<string, string | null> }>("/ready"),
 
   listRepositories: (page = 1, pageSize = 50) =>
