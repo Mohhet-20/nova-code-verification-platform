@@ -80,10 +80,10 @@ flowchart LR
 
 ## How this was built
 
-NOVA was built by one developer working with an AI coding assistant (Claude), phase by phase. Each of the 19 phases started from a written
+NOVA was built phase by phase. Each of the 19 phases started from a written
 specification that states the requirements, the safety rules and what counts as done. Every phase ended with tests,
 a verification log ([`docs/implementation/VERIFICATION_LOG.md`](docs/implementation/VERIFICATION_LOG.md)) and an explicit list of what was *not*
-verified. The commit trailers credit the assistant. The interesting engineering is in the decisions written down in `docs/`: why the model only
+verified. The interesting engineering is in the decisions written down in `docs/`: why the model only
 proposes, why restores never happen in place, how a secret leak and a concurrency collapse were found and proven fixed.
 
 Deployment: [`docs/operations/DEPLOYMENT_GUIDE.md`](docs/operations/DEPLOYMENT_GUIDE.md) · Architecture: [`docs/operations/ARCHITECTURE_AND_NETWORKING.md`](docs/operations/ARCHITECTURE_AND_NETWORKING.md) · Status: [`docs/implementation/PROJECT_STATUS.md`](docs/implementation/PROJECT_STATUS.md)

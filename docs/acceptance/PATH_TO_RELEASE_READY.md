@@ -1,4 +1,4 @@
-# Path to RELEASE READY (hand-off for Claude Code)
+# Path to RELEASE READY
 
 Start from `docs/acceptance/RELEASE_CERTIFICATION.md` (decision: NOT RELEASE READY, 2026-10-21). Work in this order; each item names the evidence that closes it. Update `DEFECT_REGISTER.md`, `RELEASE_READINESS_REPORT.md`, `VERIFICATION_LOG.md` and `PROJECT_STATUS.md` only with results you actually ran.
 
