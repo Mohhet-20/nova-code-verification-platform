@@ -1,4 +1,4 @@
-# NOVA Architecture Overview (Phase 01)
+# NOVA Architecture Overview
 
 NOVA is a self-hosted developer platform: a FastAPI backend with a SQLite database, and a React single-page app. By default nothing
 runs outside the host and no source code is transmitted anywhere; opt-in integrations and AI-assisted repair proposals (`NOVA_AI_PROVIDER=anthropic`,
@@ -32,7 +32,7 @@ frontend/src/
   types/          API contract types (mirror backend schemas)
   styles/         Tailwind entry
   test/           vitest suites (+ optional live-backend contract test)
-docs/ scripts/ deployment/ (deployment/ is reserved for Phase 18 and currently only holds a README)
+docs/ scripts/ deployment/ (deployment/ is reserved and currently only holds a README)
 ```
 
 ## Data model
@@ -43,7 +43,7 @@ docs/ scripts/ deployment/ (deployment/ is reserved for Phase 18 and currently o
 - `IndexedFile` stores relative POSIX path, extension, language, size, line count and SHA-256 — **never contents**.
 - Only the newest completed snapshot keeps its file rows; older snapshots keep their summary rows.
 - `TaskPlan.content` is a validated JSON document (`PlanContent`), versioned by `revision`.
-- A verification-run table is intentionally **not** created yet (no implemented use; Phase 06).
+- A verification-run table is intentionally **not** created yet (no implemented use yet).
 
 ## Key flows
 **Register** → `resolve_repository_root` (absolute, exists, directory, canonical, not a filesystem/home root, optional allow-list) → git
@@ -56,7 +56,7 @@ file rows in batches, then marks the snapshot `completed` or `failed`. The UI po
 ## Planner (deterministic baseline)
 Tokenizes task text (camelCase/snake_case aware, stop-words removed), scores file paths (file-name hit ×3, directory hit ×1, explicit
 path mention +20), picks candidate source and test files, infers suggested checks from root manifests, and sets a confidence level.
-It reads no file contents, runs nothing, and is fully deterministic. A `PlanProvider` interface exists so Phase 04/15 can add other
+It reads no file contents, runs nothing, and is fully deterministic. A `PlanProvider` interface exists so can add other
 providers; only `none` is accepted by configuration today.
 
 ## API conventions
@@ -65,7 +65,7 @@ providers; only `none` is accepted by configuration today.
 
 ## Database path
 SQLite by default (`backend/data/nova.db`). To use PostgreSQL later: install a driver (e.g. `psycopg`), set `NOVA_DATABASE_URL`,
-run `alembic upgrade head`. The models use portable types (JSON, String, BigInteger). **Not verified in Phase 01** — only SQLite was tested.
+run `alembic upgrade head`. The models use portable types (JSON, String, BigInteger). **Not verified** — only SQLite was tested.
 
 ## Technology choices (verified versions are pinned in the requirement/lock files)
 Python 3.12 (tested; 3.11+ supported by code but 3.11 was not run), FastAPI, Pydantic 2, SQLAlchemy 2, Alembic, pathspec; React 19,

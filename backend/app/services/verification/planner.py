@@ -92,7 +92,7 @@ def plan(db: Session, settings: Settings, repo: Repository, root: Path, cs: chan
 
     # tier 1: static analysis (new findings against the previous content)
     st = PlannedCheck("static_analysis", 1, 1, bool(rules["static"]["enforce"]),
-                      "Run the Phase 04 analyzers on the changed Python files and compare with their previous content.", "medium")
+                      "Run the analyzers on the changed Python files and compare with their previous content.", "medium")
     live = [f for f in py if f.new_text is not None]
     if not live:
         st.status, st.result = "not_applicable", {"detail": "No changed Python file to analyse."}

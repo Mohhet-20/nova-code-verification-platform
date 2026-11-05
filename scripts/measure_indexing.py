@@ -84,7 +84,7 @@ def main() -> None:
             times.append(time.perf_counter() - t)
         results["symbol_search_ms_max"] = round(max(times) * 1000, 1)
         results["symbol_search_ms_avg"] = round(sum(times) / len(times) * 1000, 1)
-        # Phase 03 graph endpoints (each request is a fresh traversal; nothing is cached).
+        # Graph endpoints (each request is a fresh traversal; nothing is cached).
         def timed(label: str, url: str, **params: object) -> None:
             t = time.perf_counter()
             r = c.get(f"{api}/repositories/{rid}{url}", params=params)

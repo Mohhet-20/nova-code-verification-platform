@@ -1,4 +1,4 @@
-# Performance Engineering, Scalability and Resource Optimization (Phase 14)
+# Performance Engineering, Scalability and Resource Optimization
 
 Scope is deliberately evidence-led: a benchmark framework, profiles of real workloads, and **only the optimizations that profiling justified**. Numbers below are from this development sandbox (Linux, CPython 3.12.14, SQLite 3.53, **2 CPUs, shared and noisy**). They are *synthetic* benchmark results on generated fixtures, not production measurements, and are not portable to other hardware.
 
@@ -12,7 +12,7 @@ Scope is deliberately evidence-led: a benchmark framework, profiles of real work
 | `budgets.py` | Baseline store and regression policy |
 | `__main__.py` | CLI |
 
-Statistics: min, median, mean, max, stdev, MAD; p95 only with n ≥ 20 and p99 only with n ≥ 100 (never reported from too few samples). Benchmarks are a **separate mode** (CLI), not part of the request path; the framework adds no telemetry system — runtime job/HTTP timing continues to use the Phase 13 registry.
+Statistics: min, median, mean, max, stdev, MAD; p95 only with n ≥ 20 and p99 only with n ≥ 100 (never reported from too few samples). Benchmarks are a **separate mode** (CLI), not part of the request path; the framework adds no telemetry system — runtime job/HTTP timing continues to use the registry.
 
 ### Fixture profiles (counts are measured, labels are not)
 `python -m app.perf --list-fixtures` prints them. Examples: small 36 files / 20,434 B; medium 314 / 282,810 B; large 1,719 / 1,856,460 B; many_files_little_code 1,533 files; large_source_files 19 files / 3,002,545 B; deep_nesting 307; import_heavy 274; malformed 114 (some syntactically broken); many_dependencies 47 (+ manifests). Generation is deterministic (same seed ⇒ same digest; tested).

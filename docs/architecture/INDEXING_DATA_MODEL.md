@@ -18,12 +18,12 @@ or the names of credential-like files.
 ## Migration behaviour
 
 * `0002` adds columns with server defaults, creates the four new tables, and **backfills** `indexed_files.repository_id`
-  from the owning snapshot before making it NOT NULL, so Phase 01 data survives.
+  from the owning snapshot before making it NOT NULL, so data survives.
 * `migrations/env.py` disables SQLite foreign-key enforcement during the migration (batch table rebuilds would
   otherwise cascade-delete child rows), commits explicitly, then runs `PRAGMA foreign_key_check` and aborts if it
   finds violations.
 * Verified: upgrade `0001 → head` with seeded data (row preserved, `repository_id` backfilled), downgrade to `0001`,
-  upgrade again, and `alembic check` reports no drift. Downgrade drops Phase 02 tables and columns by design.
+  upgrade again, and `alembic check` reports no drift. Downgrade drops tables and columns by design.
 * PostgreSQL: the schema avoids SQLite-only features (the partial index has a PostgreSQL `WHERE`), but it has **not**
   been run against PostgreSQL.
 

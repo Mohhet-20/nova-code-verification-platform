@@ -1,4 +1,4 @@
-"""Phase 08: repair investigations, patch validation/approval/application and verification."""
+"""Repair investigations, patch validation/approval/application and verification."""
 from __future__ import annotations
 
 import hashlib

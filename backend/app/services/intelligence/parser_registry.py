@@ -20,7 +20,7 @@ class LanguageCapability:
     backend: str | None            # e.g. "tree-sitter"
     packages: tuple[str, ...]      # python distributions required
     structural: bool               # structural parsing implemented for this language
-    semantic: bool = False         # compiler-accurate resolution (never true in Phase 02)
+    semantic: bool = False         # compiler-accurate resolution (never true)
     symbol_kinds: tuple[str, ...] = ()
     relationships: tuple[str, ...] = ()
     notes: str = ""

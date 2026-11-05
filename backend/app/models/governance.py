@@ -1,4 +1,4 @@
-"""Phase 15: enterprise governance records (teams, ownership, policies, workflows, review queue).
+"""Enterprise governance records (teams, ownership, policies, workflows, review queue).
 
 The tenant (organization) is the existing ``Workspace``; org roles live on ``Membership.role``. Records described as
 append-only (policy versions, evaluations, workflow events/decisions, queue history, audit events) are protected by

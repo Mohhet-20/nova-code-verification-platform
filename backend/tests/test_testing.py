@@ -1,4 +1,4 @@
-"""Phase 05: test discovery, planning, generation, validation, approval, execution, coverage and gaps."""
+"""Test discovery, planning, generation, validation, approval, execution, coverage and gaps."""
 from __future__ import annotations
 
 import ast

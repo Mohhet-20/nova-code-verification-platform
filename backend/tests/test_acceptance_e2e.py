@@ -1,4 +1,4 @@
-"""Phase 18 acceptance: cross-module workflows through the real API (no direct database inserts for the domain objects under test)."""
+"""Acceptance: cross-module workflows through the real API (no direct database inserts for the domain objects under test)."""
 from __future__ import annotations
 
 import os

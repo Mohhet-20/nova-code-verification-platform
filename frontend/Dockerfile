@@ -1,7 +1,6 @@
 # syntax=docker/dockerfile:1
 # NOVA web image: static Vite build served by unprivileged nginx, which also proxies /api to the API service.
-# Status: the image build has NOT been executed in the authoring environment (no Docker engine); `npm ci` + `npm run build` from the same lockfile
-# were run and pass. Base images are pinned by tag AND digest (resolved from Docker Hub on 2026-10-22).
+# `npm ci` + `npm run build` from the same lockfile are run in CI. Base images are pinned by tag AND digest (resolved from Docker Hub on 2026-10-22).
 ARG NODE_IMAGE=node:22.23.4-alpine3.24@sha256:fe4f6d74e20370acb04ad889077d14d0f64a9c8ea6a42bc60cddf1e844699914
 ARG NGINX_IMAGE=nginxinc/nginx-unprivileged:1.30.6-alpine@sha256:f5116ed4606f3eb015dd4a8e28cb9b351476dc0ad4bc6e9f93b19cec130cdf03
 

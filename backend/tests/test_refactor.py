@@ -1,4 +1,4 @@
-"""Phase 09: refactoring planning, multi-file rename, duplicates, extract function, lifecycle, verification and API."""
+"""Refactoring planning, multi-file rename, duplicates, extract function, lifecycle, verification and API."""
 from __future__ import annotations
 
 import hashlib

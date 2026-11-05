@@ -1,6 +1,6 @@
 """Scope analysis for Python source, built on the standard ``ast`` module.
 
-The Phase 03 index records definitions and imports but not name *references*, so cross-file renames need their own, scope-aware view
+The index records definitions and imports but not name *references*, so cross-file renames need their own, scope-aware view
 of every occurrence of a name. This module builds a scope tree for one file and reports, for each name token, which binding it
 refers to (module, function, class, lambda or comprehension scope). It never executes code.
 

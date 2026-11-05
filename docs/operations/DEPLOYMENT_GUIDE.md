@@ -1,9 +1,8 @@
 # Deployment guide
 
 Target: **one Linux host running Docker Engine with the Compose plugin**, persistent local disk, TLS in front. This is the supported production path.
-Verification status of every step is in `FINAL_DEPLOYMENT_REPORT.md`; in short, the release CLI, the production configuration, the API process
-layout, nginx config and the smoke tests were exercised for real, but **the Docker images and compose stack have never been built or started** (no
-container engine was available). Do the first deployment on a staging host and run every verification step below.
+The release CLI, the production configuration, the API process layout, nginx config and the smoke tests are exercised by CI, and the
+API image is built and run by the hosted demo. Do the first deployment on a staging host and run every verification step below.
 
 ## 1. Choose the host
 

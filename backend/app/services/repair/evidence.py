@@ -9,7 +9,7 @@ Ranking method (version 1.0). Each candidate location (file, optional symbol) co
 Evidence type                          Weight  Source
 =====================================  ======  ==========================================================================
 source_finding                         +5.0    the investigation was opened from this static/review finding at this location
-localization                           +score  Phase 06 localization score for a linked failure (already net of its own contradictions)
+localization                           +score  bug-localization score for a linked failure (already net of its own contradictions)
 static_finding_in_symbol               +3.0    an open stored static finding inside the candidate symbol (at most 2 per candidate)
 static_finding_in_file                 +1.0    an open stored finding elsewhere in the candidate file (once)
 uncommitted_change                     +1.5    Git reports the file as changed in the working tree

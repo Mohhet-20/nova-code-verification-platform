@@ -1,4 +1,4 @@
-# Enterprise governance, team collaboration and workflow orchestration (Phase 15)
+# Enterprise governance, team collaboration and workflow orchestration
 
 Status: **PARTIAL** — backend, migration and the main governance UI are implemented and verified locally (Linux / Python 3.12, SQLite); the screens listed under "Known limits" are API-only. See "Known limits" before relying on any claim here.
 
@@ -196,7 +196,7 @@ A blocked approval:
 
 Audit event schema (`audit_events`): `id`, `workspace_id`, `actor_user_id` (nullable; set to NULL only when anonymising), `action` (for example `team.created`, `team.member_added`, `member.role_changed`, `ownership.assigned`, `policy.created` / `policy.updated` / `policy.enabled` / `policy.disabled`, `workflow.created`, `workflow.submit`, `workflow.decision.approve`, `workflow.approval_blocked`, `queue.claimed`, `authz.denied`), `entity_type`, `entity_id`, `details` (JSON: `outcome`, optional `team_id`, bounded safe context such as `from` / `to` / `round`; justification **text** lives in `workflow_decisions`, the audit row records only whether one was given), `created_at`. Workflow history is additionally kept as typed `workflow_events` and `workflow_decisions`.
 
-**Retention, backup and removal.** Nothing in this phase deletes governance history: users and teams are marked `removed` / `archived`, and decisions, events and audit rows keep their ids so history stays attributable (tested). There is **no retention policy, purge job or export**; the tables grow without bound. Back up the SQLite file (`backend/data/nova.db`) with the application stopped or using SQLite's online backup, and treat backups as containing justifications and user handles. If a retention period is required, add an archival job that copies rows to protected storage before any purge, and note that the append-only triggers deliberately block `DELETE`.
+**Retention, backup and removal.** Nothing deletes governance history: users and teams are marked `removed` `archived`, and decisions, events and audit rows keep their ids so history stays attributable (tested). There is **no retention policy, purge job or export**; the tables grow without bound. Back up the SQLite file (`backend/data/nova.db`) with the application stopped or using SQLite's online backup, and treat backups as containing justifications and user handles. If a retention period is required, add an archival job that copies rows to protected storage before any purge, and note that the append-only triggers deliberately block `DELETE`.
 
 ## 9. Observability
 

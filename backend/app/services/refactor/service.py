@@ -1,7 +1,7 @@
 """Refactoring transformation lifecycle: plan -> generate -> validate -> submit -> approve -> apply -> (re-index) -> verify.
 
 Planning and validation never write to the repository. The only writer is ``apply``: it needs an approved transformation, an explicit
-``confirm``, an atomic status claim and a per-repository lock, and it goes through the Phase 08 patch engine (hash-checked, all-or-nothing,
+``confirm``, an atomic status claim and a per-repository lock, and it goes patch engine (hash-checked, all-or-nothing,
 originals retained). Analysis-only requests end in ``analyzed`` and can never be applied.
 """
 from __future__ import annotations

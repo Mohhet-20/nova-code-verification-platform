@@ -71,7 +71,7 @@ function TaskView({ task }: { task: TaskDetail }) {
               <Notice tone="info">
                 <strong>Draft plan — deterministic baseline, not an AI agent.</strong> Generated from task text and file
                 names only (revision {plan.revision}{plan.edited_by_user ? ", edited by you" : ""}). Nothing has been
-                changed or executed. Steps marked “approval” would require your explicit approval in later phases.
+                changed or executed. Steps marked “approval” would require your explicit approval in later work.
               </Notice>
               <Card title="Summary" actions={<Badge tone={draft.confidence === "low" ? "warning" : "success"}>{draft.confidence} confidence</Badge>}>
                 <p className="text-sm text-slate-700">{draft.summary}</p>

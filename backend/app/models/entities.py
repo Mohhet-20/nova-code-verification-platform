@@ -103,7 +103,7 @@ class IndexSnapshot(Base):
     limits: Mapped[dict[str, int]] = mapped_column(JSON, default=dict)
     git_head: Mapped[str | None] = mapped_column(String(64), nullable=True)
     git_branch: Mapped[str | None] = mapped_column(String(255), nullable=True)
-    # --- Phase 02: generation, change accounting, counts ---
+    # --- Generation, change accounting, counts ---
     generation: Mapped[int] = mapped_column(Integer, default=1, server_default="1")
     mode: Mapped[str] = mapped_column(String(20), default="incremental", server_default="incremental")
     files_new: Mapped[int] = mapped_column(Integer, default=0, server_default="0")
@@ -139,7 +139,7 @@ class IndexedFile(Base):
     line_count: Mapped[int] = mapped_column(Integer, default=0)
     sha256: Mapped[str] = mapped_column(String(64))
     depth: Mapped[int] = mapped_column(Integer, default=0)
-    # --- Phase 02 ---
+    # --- ---
     repository_id: Mapped[str] = mapped_column(
         ForeignKey("repositories.id", ondelete="CASCADE"), index=True)  # denormalized for isolation checks
     mtime_ns: Mapped[int] = mapped_column(BigInteger, default=0, server_default="0")
@@ -317,7 +317,7 @@ class AuditEvent(Base):
     created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=utcnow, index=True)
 
 
-# ----------------------------------------------------------------------------- Phase 04: static analysis
+# ----------------------------------------------------------------------------- Static analysis
 
 class AnalysisRun(Base):
     """One static-analysis run over the published index of a repository."""
@@ -423,7 +423,7 @@ class Finding(Base):
     last_run_id: Mapped[str] = mapped_column(String(32))
 
 
-# ---------------------------------------------------------------------------------------------- Phase 05: test engineering
+# ---------------------------------------------------------------------------------------------- Test engineering
 
 class TestDiscovery(Base):
     """One static scan for tests. Nothing here means a test ran or passed."""
@@ -587,7 +587,7 @@ class CoverageFile(Base):
     branches_covered: Mapped[int | None] = mapped_column(Integer, nullable=True)
 
 
-# ------------------------------------------------------------------------------------------------ Phase 06: debugging
+# ------------------------------------------------------------------------------------------------ Debugging
 
 class FailureReport(Base):
     """One distinct failure (identified by a stable fingerprint). Recurrences update this row; they do not add rows."""
@@ -714,7 +714,7 @@ class VerificationRun(Base):
     created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=utcnow)
 
 
-# ------------------------------------------------------------------------------------------------ Phase 07: code review
+# ------------------------------------------------------------------------------------------------ Code review
 
 class CodeReview(Base):
     """One review of a concrete set of changes. Stores analysis output, never source text or diffs."""
@@ -845,7 +845,7 @@ class ReviewFinding(Base):
     created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=utcnow)
 
 
-# ------------------------------------------------------------------------------------------------ Phase 08: repair
+# ------------------------------------------------------------------------------------------------ Repair
 
 REPAIR_STATUSES = ("open", "analyzed", "proposed", "patched", "applied", "verified", "verification_failed", "closed")
 PATCH_STATUSES = ("draft", "validated", "invalid", "awaiting_approval", "approved", "rejected", "applying", "applied",
@@ -891,7 +891,7 @@ class RepairInvestigation(Base):
 class RepairPatch(Base):
     """A proposed change as a unified diff, bound to the exact content it was made against.
 
-    Phase 08 deliberately stores the diff text and the original content of the patched files (needed for rollback and audit).
+    Deliberately stores the diff text and the original content of the patched files (needed for rollback and audit).
     """
 
     __tablename__ = "repair_patches"
@@ -932,7 +932,7 @@ class RepairPatch(Base):
 
 
 class RepairVerification(Base):
-    """One verification attempt for an applied patch. Test execution itself is a Phase 05 TestExecutionRun."""
+    """One verification attempt for an applied patch. Test execution itself is a TestExecutionRun."""
 
     __tablename__ = "repair_verifications"
     __table_args__ = (
@@ -956,7 +956,7 @@ class RepairVerification(Base):
     evaluated_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), nullable=True)
 
 
-# ---------------------------------------------------------------------------------------------- Phase 09: refactoring
+# ---------------------------------------------------------------------------------------------- Refactoring
 REFACTOR_STATUSES = ("planned", "blocked", "generated", "invalid", "validated", "awaiting_approval", "approved", "rejected", "applying", "applied",
                      "verification_failed", "verified", "analyzed", "closed")
 
@@ -964,7 +964,7 @@ REFACTOR_STATUSES = ("planned", "blocked", "generated", "invalid", "validated", 
 class RefactorTransformation(Base):
     """One refactoring request: its plan, impact, generated multi-file diff and lifecycle.
 
-    The diff is applied with the Phase 08 patch engine; verification is a Phase 05 test run referenced from ``RefactorVerification``.
+    The diff is applied with the patch engine; verification is a test run referenced from ``RefactorVerification``.
     Analysis-only requests (duplicate detection, conditional simplification) never get a diff and end in ``analyzed``.
     """
 
@@ -1007,7 +1007,7 @@ class RefactorTransformation(Base):
 
 
 class RefactorVerification(Base):
-    """Verification attempt for an applied transformation. Test execution itself is a Phase 05 TestExecutionRun."""
+    """Verification attempt for an applied transformation. Test execution itself is a TestExecutionRun."""
 
     __tablename__ = "refactor_verifications"
     __table_args__ = (
@@ -1030,7 +1030,7 @@ class RefactorVerification(Base):
     evaluated_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), nullable=True)
 
 
-# ------------------------------------------------------------------------------------------------ Phase 10: continuous verification
+# ------------------------------------------------------------------------------------------------ Continuous verification
 
 class CvPolicy(Base):
     """One immutable version of a repository's quality-gate policy. Runs snapshot the version they used."""
@@ -1138,7 +1138,7 @@ class CvEvent(Base):
     created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=utcnow)
 
 
-# ---- CI/CD integration (Phase 11) ----
+# ---- CI/CD integration ----
 
 
 class CiConnection(Base):
@@ -1290,7 +1290,7 @@ class CiReport(Base):
     created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=utcnow)
 
 
-# ---- Security engineering and supply-chain intelligence (Phase 12) ----
+# ---- Security engineering and supply-chain intelligence ----
 
 
 class SecScan(Base):
@@ -1500,7 +1500,7 @@ class SecReport(Base):
     created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=utcnow)
 
 
-# ---------------- Operational intelligence (Phase 13) ----------------
+# ---------------- Operational intelligence ----------------
 class OpsConfig(Base):
     """Versioned alert-rule / SLO definitions. Old versions are preserved; the highest version per (kind, key) is current."""
     __tablename__ = "ops_configs"

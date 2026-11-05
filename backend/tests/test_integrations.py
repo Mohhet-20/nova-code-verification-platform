@@ -1,4 +1,4 @@
-"""Phase 16: integrations - credentials, SSRF, installations, inbound webhooks, CI evidence, outbound webhooks, jobs, idempotency, extensions.
+"""Integrations - credentials, SSRF, installations, inbound webhooks, CI evidence, outbound webhooks, jobs, idempotency, extensions.
 All HTTP is mocked at the injected client boundary; nothing here touches the network."""
 from __future__ import annotations
 

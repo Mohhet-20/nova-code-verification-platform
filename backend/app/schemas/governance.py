@@ -1,4 +1,4 @@
-"""Request schemas for Phase 15 governance APIs (strict: unknown fields are rejected)."""
+"""Request schemas governance APIs (strict: unknown fields are rejected)."""
 from __future__ import annotations
 
 from datetime import datetime

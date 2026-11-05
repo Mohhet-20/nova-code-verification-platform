@@ -1,6 +1,6 @@
-# Repository Intelligence (Phase 02)
+# Repository Intelligence
 
-How NOVA turns a registered directory into a queryable, honest model of its code. This builds on the Phase 01
+How NOVA turns a registered directory into a queryable, honest model of its code. This builds on the
 inventory; see `INDEXING_DATA_MODEL.md` for tables and `docs/security/REPOSITORY_INDEXING_THREAT_MODEL.md` for the
 safety analysis.
 
@@ -35,7 +35,7 @@ register -> POST /index -> [ discover -> detect language -> parse -> persist -> 
 | everything else | metadata only | counted and listed, no symbols, no import analysis |
 
 `GET /api/v1/capabilities` reports the same table live, including whether each parser could actually be loaded.
-**Nothing here is compiler-accurate.** There is no type resolution. Phase 03 added a name-based call graph and dynamic-import detection (see `CODE_INTELLIGENCE_GRAPH.md`).
+**Nothing here is compiler-accurate.** There is no type resolution. Code intelligence adds a name-based call graph and dynamic-import detection (see `CODE_INTELLIGENCE_GRAPH.md`).
 
 ## Per-file analysis status
 
@@ -73,7 +73,7 @@ Each run builds a complete new generation. A file whose sha256 and `analysis_ver
 (and whose language and status allow reuse) has its symbols and raw imports copied instead of re-parsed. Statuses:
 `new`, `changed`, `unchanged`; removed files are counted (`files_removed`, `null` when the scan was truncated, because
 removal cannot be established). A rename is a delete plus an add. `mode: "full"` re-parses everything. Content is read
-and hashed on every run, so incremental mode saves parsing, not I/O. See "Known limits" in `PROJECT_STATUS.md` for
+and hashed on every run, so incremental mode saves parsing, not I/O. See `docs/performance/BENCHMARKS.md` for
 measured costs.
 
 ## Run outcomes

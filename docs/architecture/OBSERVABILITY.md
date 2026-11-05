@@ -1,4 +1,4 @@
-# Observability, Reliability Engineering and Operational Intelligence (Phase 13)
+# Observability, Reliability Engineering and Operational Intelligence
 
 Everything runs in-process with **no mandatory external vendor and no new dependency**. This document is explicit about what is implemented, what is exported, and what is only local or experimental.
 

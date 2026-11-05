@@ -1,4 +1,4 @@
-"""Phase 12: security engineering and supply-chain intelligence.
+"""Security engineering and supply-chain intelligence.
 
 Everything is synthetic: advisories are offline OSV-format fixtures, secrets are fake values assembled at runtime, and no network is used.
 """

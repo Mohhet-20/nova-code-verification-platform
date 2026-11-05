@@ -1,4 +1,4 @@
-"""Phase 07: code review - change acquisition, symbol mapping, risk, impact, findings, recommendations, workflow and safety."""
+"""Code review - change acquisition, symbol mapping, risk, impact, findings, recommendations, workflow and safety."""
 from __future__ import annotations
 
 import hashlib

@@ -50,8 +50,8 @@ flowchart LR
 
 * **RPO / RTO are targets you set, not properties of this software.** With a nightly `backup` job the RPO is up to 24 h; with hourly, 1 h. RTO = time to run steps in RB-08 plus validation.
 * **Measured, synthetic, this sandbox only (not representative of production):** a 53 MB database (50,000 rows in a scratch table) + 2,000 four-KB artifact files: backup 0.64 s, verify 0.08 s, restore + migrate-check + integrity + reference check 0.72 s. Fresh migration of an empty database: 4.8 s. Real data volumes, disks and network copies will differ; measure with your own data during a DR drill.
-* **Rehearsal on 2026-10-22 (WSL2 Ubuntu, Python 3.12, small real data set: 1 indexed repository, analysis, review, test runs, tasks):** online backup while the API served requests 0.98-4.12 s, verify ok, tampered copy rejected (`checksum does not match`), isolated restore 1.17 s with `ok: true` (integrity, FK, 0 missing file references, no row loss), a second API started on the restored data passed 18/18 smoke checks and reported identical counts. Evidence: `FINAL_DEPLOYMENT_REPORT.md`.
-* A DR drill on separate hardware has **not** been performed, and the container form of these commands has not been executed (no Docker in the authoring environment; the CI `containers` job runs it).
+* **Rehearsal on 2026-10-22 (WSL2 Ubuntu, Python 3.12, small real data set: 1 indexed repository, analysis, review, test runs, tasks):** online backup while the API served requests 0.98-4.12 s, verify ok, tampered copy rejected (`checksum does not match`), isolated restore 1.17 s with `ok: true` (integrity, FK, 0 missing file references, no row loss), a second API started on the restored data passed 18/18 smoke checks and reported identical counts.
+* A DR drill on separate hardware has **not** been performed, and the container form of these commands has not been executed (no Docker; the CI `containers` job runs it).
 
 ## Integrity tests that exist
 

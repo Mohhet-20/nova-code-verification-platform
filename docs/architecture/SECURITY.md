@@ -1,4 +1,4 @@
-# Security Intelligence and Supply-Chain Analysis (Phase 12)
+# Security Intelligence and Supply-Chain Analysis
 
 NOVA scans a registered repository for vulnerable dependencies, insecure code patterns and possible secrets, evaluates the results against a versioned policy, and proposes reviewable fixes. **Scans only read files.** Nothing from the scanned repository is executed, imported or installed, no lifecycle script runs, and no network request is made unless an advisory source was explicitly enabled.
 

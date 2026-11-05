@@ -47,7 +47,7 @@ logger = logging.getLogger("nova.review")
 GENERATOR_VERSION = "1.0"
 CODE_LANGUAGES = {"python", "javascript", "typescript", "jsx", "tsx", "java", "go", "rust", "c", "c++", "c#", "ruby", "php", "kotlin",
                   "swift", "shell", "bash", "sql", "scala", "lua", "perl", "r", "dart", "objective-c"}
-CHECKS_RUN = ["Phase 04 Python static-analysis rules on changed lines", "Public interface change check (REV-API-001)",
+CHECKS_RUN = ["Python static-analysis rules on changed lines", "Public interface change check (REV-API-001)",
               "Removed/renamed module still imported check (REV-DEL-001)", "Changed code without associated tests (REV-TEST-001)",
               "Sensitive-area observations (REV-INFO-001/002)"]
 

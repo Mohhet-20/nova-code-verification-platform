@@ -1,4 +1,4 @@
-"""Phase 16: enterprise integrations (installations, credentials, inbound events, CI evidence, outbound webhooks, jobs, idempotency, links).
+"""Enterprise integrations (installations, credentials, inbound events, CI evidence, outbound webhooks, jobs, idempotency, links).
 
 The tenant is the existing ``Workspace``. Secrets are stored only as authenticated ciphertext in ``integration_secrets``; every other table
 holds identifiers and sanitized summaries, never credentials or full external payloads.

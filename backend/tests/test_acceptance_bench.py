@@ -1,4 +1,4 @@
-"""Phase 18: synthetic benchmarks for governance, review-queue and webhook paths. They run as ordinary tests with deliberately generous ceilings
+"""Synthetic benchmarks for governance, review-queue and webhook paths. They run as ordinary tests with deliberately generous ceilings
 (so they are not flaky on a 2-CPU sandbox) and write their measurements to $NOVA_BENCH_OUT when set. Timings are from the environment that ran them."""
 from __future__ import annotations
 

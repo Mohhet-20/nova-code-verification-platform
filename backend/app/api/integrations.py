@@ -1,4 +1,4 @@
-"""Phase 16 integration API (v1): catalog, installations, credentials, inbound events, CI evidence, issue links, webhook subscriptions and
+"""Integration API (v1): catalog, installations, credentials, inbound events, CI evidence, issue links, webhook subscriptions and
 deliveries, extensions, jobs and health. Every handler derives identity and permissions server-side; request models forbid unknown fields
 (no mass assignment); secrets are returned exactly once at creation/rotation and never again."""
 from __future__ import annotations

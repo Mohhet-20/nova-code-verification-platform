@@ -1,5 +1,5 @@
 # Optional overlay: Caddy terminates TLS with automatic Let's Encrypt certificates for NOVA_DOMAIN and forwards to the web container.
-# Requirements: a DNS A/AAAA record for NOVA_DOMAIN pointing at this host and inbound ports 80 and 443 open. NOT executed in the authoring environment.
+# Requirements: a DNS A/AAAA record for NOVA_DOMAIN pointing at this host and inbound ports 80 and 443 open.
 #   docker compose -f deployment/docker-compose.yml -f deployment/docker-compose.tls.yml --env-file deployment/production.env up -d
 # With this overlay, keep NOVA_WEB_BIND=127.0.0.1 so plain HTTP on 8080 is not reachable from outside.
 services:

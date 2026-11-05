@@ -1,4 +1,4 @@
-# Test engineering (Phase 05)
+# Test engineering
 
 Discovery, gap analysis, planning, deterministic test generation, validation, **approved** execution and measured coverage for Python/pytest repositories. Code: `backend/app/services/testing/`, `backend/app/api/testing.py`, UI at `/repositories/:id/testing`.
 
@@ -46,7 +46,7 @@ cd backend
 $env:NOVA_ARTIFACT_DIR = "$PWD\data\artifacts"
 .\.venv\Scripts\python.exe -m pytest tests\test_testing.py -q
 ```
-Resource limits are not enforced on Windows; the timeout and output cap are. Windows is not verified in this phase.
+Resource limits are not enforced on Windows; the timeout and output cap are. Windows is not verified.
 
 ## Troubleshooting
 * *Coverage `tool_unavailable`/`failed`*: the interpreter in `NOVA_TEST_PYTHON` lacks `coverage` or pytest; install both there.

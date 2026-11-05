@@ -1,4 +1,4 @@
-"""Phase 03: call extraction/resolution, graph algorithms, dependency/impact/cycle/metrics/status APIs."""
+"""Call extraction/resolution, graph algorithms, dependency/impact/cycle/metrics/status APIs."""
 from __future__ import annotations
 
 import time

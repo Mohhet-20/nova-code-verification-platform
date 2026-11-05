@@ -1,4 +1,4 @@
-"""Centralised, deny-by-default authorization for governance features (Phase 15).
+"""Centralised, deny-by-default authorization for governance features.
 
 Two layers, both evaluated on the server for every protected operation:
 

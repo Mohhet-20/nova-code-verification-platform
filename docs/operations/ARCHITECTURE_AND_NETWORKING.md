@@ -66,7 +66,7 @@ For that to key on the browser and not on a proxy:
 3. uvicorn trusts forwarding headers from any peer (`FORWARDED_ALLOW_IPS=*` in compose) because the API port is not published; only `web` can reach it.
 
 If you publish port 8000 or put a proxy on a public address in front of nginx, change these trust settings accordingly. Verified in the rehearsal:
-20 invalid tokens from `203.0.113.50` (via nginx) -> 429 for that address, other addresses unaffected (`FINAL_DEPLOYMENT_REPORT.md`).
+20 invalid tokens from `203.0.113.50` (via nginx) -> 429 for that address, other addresses unaffected.
 
 ## Egress
 

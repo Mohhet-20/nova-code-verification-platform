@@ -1,6 +1,6 @@
-# Enterprise integrations, API contracts and extensions (Phase 16)
+# Enterprise integrations, API contracts and extensions
 
-Status of this document: describes what is **implemented and tested** in Phase 16. Anything marked *deferred* or *not verified* is not claimed.
+Status of this document: describes what is **implemented and tested**. Anything marked *deferred* or *not verified* is not claimed.
 The tenant ("organization") is the existing `Workspace`; every integration table carries `workspace_id`, and every query is scoped to it.
 
 ## 1. Architecture

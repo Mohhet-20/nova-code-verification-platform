@@ -1,4 +1,4 @@
-"""Phase 18 acceptance: route-wide authorization sweeps. These enumerate EVERY operation in the live OpenAPI document, so a route added later without
+"""Acceptance: route-wide authorization sweeps. These enumerate EVERY operation in the live OpenAPI document, so a route added later without
 authentication or role checks fails here instead of slipping through feature-specific tests."""
 from __future__ import annotations
 

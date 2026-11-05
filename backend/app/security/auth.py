@@ -1,6 +1,6 @@
 """Authentication and role checks.
 
-Security boundary (documented in docs/architecture/SECURITY_MODEL.md): NOVA Phase 01 is a
+Security boundary (documented in docs/architecture/SECURITY_MODEL.md): NOVA is a
 single-user, local-first application. There is one local identity. An optional bearer token
 protects the API when it is bound beyond localhost. Roles exist in the data model and are
 enforced on write endpoints, but multi-user isolation is NOT implemented.

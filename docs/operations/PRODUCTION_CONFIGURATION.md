@@ -122,7 +122,7 @@ Booleans accept `true`/`false`; list values are comma separated. Repository conf
 | `NOVA_AI_MAX_CONTEXT_BYTES` | `120000` | >= 4000, <= 1000000 |
 | `NOVA_AI_MAX_EDITS` | `20` | >= 1, <= 100 |
 
-#### Indexing (Phase 02-03)
+#### Indexing
 
 | Variable | Default | Constraint |
 |---|---|---|
@@ -136,7 +136,7 @@ Booleans accept `true`/`false`; list values are comma separated. Repository conf
 | `NOVA_INDEX_MAX_DIAGNOSTICS` | `500` | >= 0 |
 | `NOVA_INDEX_EXTRA_EXCLUDES` | (empty) | - |
 
-#### Static analysis (Phase 04)
+#### Static analysis
 
 | Variable | Default | Constraint |
 |---|---|---|
@@ -146,7 +146,7 @@ Booleans accept `true`/`false`; list values are comma separated. Repository conf
 | `NOVA_ANALYSIS_MAX_FINDINGS_PER_FILE` | `200` | >= 1 |
 | `NOVA_ANALYSIS_MAX_CONCURRENT_RUNS` | `2` | >= 1 |
 
-#### Test engineering (Phase 05)
+#### Test engineering
 
 | Variable | Default | Constraint |
 |---|---|---|
@@ -162,7 +162,7 @@ Booleans accept `true`/`false`; list values are comma separated. Repository conf
 | `NOVA_TEST_MAX_CONCURRENT_RUNS` | `1` | >= 1 |
 | `NOVA_TEST_EXECUTION_ENABLED` | `True` | - |
 
-#### Debugging (Phase 06)
+#### Debugging
 
 | Variable | Default | Constraint |
 |---|---|---|
@@ -172,7 +172,7 @@ Booleans accept `true`/`false`; list values are comma separated. Repository conf
 | `NOVA_DEBUG_IMPACT_DEPTH` | `2` | - |
 | `NOVA_DEBUG_WEIGHTS_JSON` | (empty) | - |
 
-#### Code review (Phase 07)
+#### Code review
 
 | Variable | Default | Constraint |
 |---|---|---|
@@ -186,7 +186,7 @@ Booleans accept `true`/`false`; list values are comma separated. Repository conf
 | `NOVA_REVIEW_MIN_CONFIDENCE` | `medium` | - |
 | `NOVA_REVIEW_MAX_RECOMMENDATIONS` | `30` | >= 1 |
 
-#### Repair (Phase 08)
+#### Repair
 
 | Variable | Default | Constraint |
 |---|---|---|
@@ -197,7 +197,7 @@ Booleans accept `true`/`false`; list values are comma separated. Repository conf
 | `NOVA_REPAIR_MIN_ROOT_CAUSE_SCORE` | `2.0` | > 0 |
 | `NOVA_REPAIR_ALLOWED_SUFFIXES` | `.py,.md,.txt,.toml,.cfg,.ini,.json,.yaml,.yml,.js,.jsx,.ts,.tsx,.html,.css,.rst` | - |
 
-#### Refactoring (Phase 09)
+#### Refactoring
 
 | Variable | Default | Constraint |
 |---|---|---|
@@ -211,7 +211,7 @@ Booleans accept `true`/`false`; list values are comma separated. Repository conf
 | `NOVA_REFACTOR_DUP_EXCLUDE` | `node_modules,vendor,dist,build,.venv,venv,site-packages,__pycache__,.tox,third_party,.git` | - |
 | `NOVA_REFACTOR_OUTPUT_CHARS` | `4000` | >= 200 |
 
-#### Continuous verification (Phase 10)
+#### Continuous verification
 
 | Variable | Default | Constraint |
 |---|---|---|
@@ -221,7 +221,7 @@ Booleans accept `true`/`false`; list values are comma separated. Repository conf
 | `NOVA_CV_FLAKY_LOOKBACK` | `10` | >= 2, <= 50 |
 | `NOVA_CV_OUTPUT_CHARS` | `4000` | >= 200 |
 
-#### CI/CD (Phase 11)
+#### CI/CD
 
 | Variable | Default | Constraint |
 |---|---|---|
@@ -234,7 +234,7 @@ Booleans accept `true`/`false`; list values are comma separated. Repository conf
 | `NOVA_CI_MAX_CHANGED_FILES` | `500` | >= 1 |
 | `NOVA_CI_REPORT_MAX_BYTES` | `400000` | >= 10000 |
 
-#### Security scanning (Phase 12)
+#### Security scanning
 
 | Variable | Default | Constraint |
 |---|---|---|
@@ -251,7 +251,7 @@ Booleans accept `true`/`false`; list values are comma separated. Repository conf
 | `NOVA_SECURITY_HTTP_MAX_RESPONSE_BYTES` | `2000000` | >= 1000 |
 | `NOVA_SECURITY_REPORT_MAX_BYTES` | `2000000` | >= 10000 |
 
-#### Observability (Phase 13)
+#### Observability
 
 | Variable | Default | Constraint |
 |---|---|---|
@@ -272,7 +272,7 @@ Booleans accept `true`/`false`; list values are comma separated. Repository conf
 | `NOVA_OPS_WEBHOOK_SECRET_ENV` | (empty) | - |
 | `NOVA_OPS_SLACK_WEBHOOK_ENV` | (empty) | - |
 
-#### Integrations and webhooks (Phase 16)
+#### Integrations and webhooks
 
 | Variable | Default | Constraint |
 |---|---|---|

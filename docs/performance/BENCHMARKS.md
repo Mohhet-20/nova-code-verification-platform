@@ -1,6 +1,6 @@
-# Final benchmark report (Phase 18)
+# Benchmarks
 
-**Environment:** Linux 6.8.0-138 x86_64, CPython 3.12.14, SQLite 3.53.1, 2 shared CPUs (noisy), assessed 2026-10-21. Synthetic generated fixtures only; no confidential content. These are **sandbox measurements, not production numbers**, and are not comparable to any other machine. No optimization was made in this phase, so there is no before/after comparison; correctness checks ran with every measurement.
+**Environment:** Linux 6.8.0-138 x86_64, CPython 3.12.14, SQLite 3.53.1, 2 shared CPUs (noisy), assessed 2026-10-21. Synthetic generated fixtures only; no confidential content. These are **sandbox measurements, not production numbers**, and are not comparable to any other machine. No optimization was made, so there is no before/after comparison; correctness checks ran with every measurement.
 
 ## 1. Indexing, analysis, read APIs (`python -m app.perf --repeat N`, correctness-checked)
 
@@ -42,7 +42,7 @@ First index 1.54 s (18,000 symbols); unchanged re-index 1.64 s; one-file-change 
 
 Timings are in-process through the ASGI test client (no network or TLS); real HTTP adds overhead. Single-user, single-process: **no concurrent-load or throughput test was run**, and no database larger than a few thousand rows.
 
-## 4. Backup/restore (synthetic, from Phase 17)
+## 4. Backup/restore (synthetic,)
 53 MB database + 2,000 files: backup 0.64 s, verify 0.08 s, restore with checks 0.72 s.
 
 ## Targets

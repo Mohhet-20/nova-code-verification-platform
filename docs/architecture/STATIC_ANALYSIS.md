@@ -1,4 +1,4 @@
-# Static analysis and code-quality diagnostics (Phase 04 / Phase 04)
+# Static analysis and code-quality diagnostics
 
 Status: implemented and verified on Linux / Python 3.12. Not verified on Windows, in a real browser or on PostgreSQL.
 
@@ -7,7 +7,7 @@ Status: implemented and verified on Linux / Python 3.12. Not verified on Windows
 NOVA parses Python files with the standard-library `ast` module and runs a catalog of **pattern rules** over them. Each rule
 reports *where* it matched, *why that pattern is risky*, *evidence*, a *next step* and *what the analyzer cannot determine*.
 A finding is a pattern, not a confirmed defect. Nothing from a repository is imported, compiled, executed or passed to a shell.
-JavaScript/TypeScript and other languages are indexed (Phases 02–03) but have **no analysis rules**; the API says so.
+JavaScript/TypeScript and other languages are indexed but have **no analysis rules**; the API says so.
 
 ## Architecture
 

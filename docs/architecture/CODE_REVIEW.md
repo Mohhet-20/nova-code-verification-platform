@@ -1,4 +1,4 @@
-# Intelligent code review, change-risk analysis and regression prevention (Phase 07)
+# Intelligent code review, change-risk analysis and regression prevention
 
 NOVA reviews **local Git changes**. It reads the diff and file contents from the repository on disk, maps the change onto the code index, runs the existing
 static analyzers on the changed code, applies a small set of documented change checks, estimates change risk with a transparent formula, bounds the impact,
@@ -43,7 +43,7 @@ Reviews run in a background task; at most 3 may be active per instance (429 beyo
 ## Findings
 Each finding has a stable id and fingerprint, rule, location in the new revision, severity, category (correctness, security, reliability, maintainability,
 performance, testing gap, informational), explanation, evidence, remediation, limitations, confidence, an `actionable` flag, lifecycle status and related ids.
-* **Analyzer findings** reuse the Phase 04 analyzers on changed files and keep only findings on changed lines. They use the exact Phase 04 fingerprint, so a stored
+* **Analyzer findings** reuse the analyzers on changed files and keep only findings on changed lines. They use the exact fingerprint, so a stored
   finding with the same fingerprint is linked (`related.preexisting`) instead of being counted as new. Unchanged lines and unchanged files are never attributed to the change.
 * **Change checks (heuristic):** `REV-API-001` public function removed or signature broken (new required parameter, removed or reordered parameter; added defaults are not flagged),
   `REV-DEL-001` deleted/renamed module that is still imported (needs an index built before the deletion), `REV-TEST-001` changed code with no associated test
@@ -80,7 +80,7 @@ analysable code changed. The score is a ranking aid for regression exposure. It 
 The API returns every factor with its status (`measured`/`unavailable`), raw value, weight, contribution and evidence, plus the formula and thresholds.
 
 ## Impact
-Reuses the Phase 06 impact analysis over the Phase 03 graph: direct and transitive dependents to `NOVA_REVIEW_IMPACT_DEPTH` (default 2, max 4; cycles handled, duplicates
+Reuses the impact analysis over the graph: direct and transitive dependents to `NOVA_REVIEW_IMPACT_DEPTH` (default 2, max 4; cycles handled, duplicates
 removed by minimum depth), symbol-level callers when the changed symbol has an index id, recorded failures, and limitations (graph missing, stale, depth-limited).
 **Potentially affected tests** are tests that import a changed file (`imports_changed_file`); the API states that this does not show they exercise the change.
 
@@ -122,7 +122,7 @@ cd backend
 .\.venv\Scripts\python.exe -m alembic upgrade head
 .\.venv\Scripts\python.exe -m pytest tests\test_review.py -q
 ```
-Windows is **not verified** in this phase. Case-insensitive paths and CRLF line endings are untested; the tests create real repositories with the `git` on `PATH`.
+Windows is **not verified**. Case-insensitive paths and CRLF line endings are untested; the tests create real repositories with the `git` on `PATH`.
 
 ## Troubleshooting
 * *409 "not a Git working tree"*: register the repository root, or run `git init`.

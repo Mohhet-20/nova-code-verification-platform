@@ -2,7 +2,7 @@
  * Optional contract test: renders the real UI in jsdom against a RUNNING backend.
  * Skipped unless NOVA_LIVE_API (e.g. http://127.0.0.1:8000) and NOVA_LIVE_REPO_PATH are set.
  * It registers and indexes a repository and creates a task, so point it at a synthetic repo
- * and a throwaway database (see docs/implementation/VERIFICATION_LOG.md).
+ * and a throwaway database.
  */
 import { screen, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
@@ -48,7 +48,7 @@ describe.skipIf(!base || !repoPath)("live backend", () => {
     expect(screen.getByText(/exact name/)).toBeInTheDocument();
     expect(screen.getByRole("list", { name: "Analysis coverage" })).toHaveTextContent("Parsed");
 
-    // Phase 03 workspace against the real API: metrics, symbol detail, dependency explorer, cycles.
+    // Workspace against the real API: metrics, symbol detail, dependency explorer, cycles.
     await user.click(screen.getByRole("link", { name: "Code intelligence" }));
     const overview = await screen.findByRole("region", { name: "Index overview" }, { timeout: 10_000 });
     expect(within(overview).getByText("Dependency cycles")).toBeInTheDocument();
@@ -63,7 +63,7 @@ describe.skipIf(!base || !repoPath)("live backend", () => {
     await user.click(screen.getByRole("link", { name: "Back to repository" }));
     await screen.findByRole("table", { name: "Indexed files" });
 
-    // Phase 04 workspace against the real API: run analysis, then read the real summary and findings list.
+    // Workspace against the real API: run analysis, then read the real summary and findings list.
     await user.click(screen.getByRole("link", { name: "Code health" }));
     await user.click(await screen.findByRole("button", { name: "Run analysis" }));
     const health = await screen.findByRole("region", { name: "Code health overview" }, { timeout: 20_000 });

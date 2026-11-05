@@ -1,1 +1,1 @@
-"""Phase 08: evidence-based repair investigations, safe patches and verification."""
+"""Evidence-based repair investigations, safe patches and verification."""

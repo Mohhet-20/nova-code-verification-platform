@@ -1,4 +1,4 @@
-"""Phase 14: performance framework, fixtures, budgets, and correctness of the performance-motivated changes."""
+"""Performance framework, fixtures, budgets, and correctness of the performance-motivated changes."""
 from __future__ import annotations
 
 import ast

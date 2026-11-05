@@ -308,7 +308,7 @@ export interface Freshness {
   note: string;
 }
 
-// ---- Phase 03: dependency graph, impact, cycles, status and metrics ----
+// ---- Dependency graph, impact, cycles, status and metrics ----
 
 export interface GraphItem {
   kind: "file" | "symbol" | "module" | string;
@@ -439,7 +439,7 @@ export interface Metrics {
   definitions: Record<string, string>;
 }
 
-// ---- Phase 04: static analysis, findings and code health ----
+// ---- Static analysis, findings and code health ----
 
 export type Severity = "critical" | "high" | "medium" | "low" | "info";
 export type FindingStatus = "new" | "existing" | "resolved" | "reopened" | "suppressed";
@@ -571,7 +571,7 @@ export interface RulesOut {
   languages: { language: string; status: string; note: string }[];
 }
 
-// ---- Test engineering (Phase 05) ----
+// ---- Test engineering ----
 export interface TestDiscovery {
   id: string; status: string; framework: string; framework_config: Record<string, unknown>;
   started_at: string; finished_at: string | null; files_found: number; files_unparsable: number; tests_found: number;
@@ -632,7 +632,7 @@ export interface GapPage {
   items: GapItem[]; total: number; page: number; page_size: number; coverage_run_id: string | null; discovery_id: string | null; note: string;
 }
 
-// ---- Phase 06: failures, localization, investigations, verification ----
+// ---- Failures, localization, investigations, verification ----
 export type FailureStatus = "open" | "investigating" | "resolved" | "ignored";
 export interface FailureItem {
   id: string; category: string; exception_type: string | null; test_id: string | null; summary: string; status: FailureStatus; source: string;
@@ -699,7 +699,7 @@ export interface RelatedOut {
   related_failures: { failure: FailureItem; shared_files: string[]; shared_symbol_count: number; relationship: string }[];
 }
 
-// ---- Phase 07: code review ------------------------------------------------------------------------------------------
+// ---- Code review ------------------------------------------------------------------------------------------
 export type ReviewMode = "revisions" | "staged" | "unstaged" | "working_tree";
 export type ReviewStatus = "pending" | "running" | "completed" | "completed_with_warnings" | "failed";
 export type ReviewFindingStatus = "open" | "accepted" | "dismissed" | "follow_up";
@@ -759,7 +759,7 @@ export interface ReviewRecommendation {
 }
 export interface ReviewRecommendations { items: ReviewRecommendation[]; total: number; note: string; ready: boolean }
 
-// ---------------------------------------------------------------------------------------------- Phase 08: repair
+// ---------------------------------------------------------------------------------------------- Repair
 export type RepairStatus = "open" | "analyzed" | "proposed" | "patched" | "applied" | "verified" | "verification_failed" | "closed";
 export type PatchStatus = "draft" | "validated" | "invalid" | "awaiting_approval" | "approved" | "rejected" | "applying" | "applied" | "verification_failed" | "verified";
 export type RepairOutcome = "PENDING" | "PASSED" | "FAILED" | "INCOMPLETE" | "BLOCKED";
@@ -819,7 +819,7 @@ export interface RepairVerifyPreview { executes: boolean; requires: string; patc
 export interface RepairRollback { originals_retained: boolean; applied: boolean; reverse_diff: string; instructions: string[]; current_matches_patched_result: boolean }
 export interface RepairAuditEntry { id: string; action: string; created_at: string; details: Record<string, unknown> }
 
-// ------------------------------------------------------------------------------------------------ refactoring (Phase 09)
+// ------------------------------------------------------------------------------------------------ refactoring
 /** Engine-specific JSON whose shape depends on the refactoring type; fields are read defensively. */
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export type Loose = Record<string, any>;
@@ -887,7 +887,7 @@ export interface RefactorRollback { originals_retained: boolean; applied: boolea
 export interface RefactorRenameRequest { type_id: string; rel_path: string; name: string; new_name: string; function?: string; class_name?: string; kind?: string }
 export interface RefactorDuplicatesRequest { min_lines?: number; threshold?: number; path_prefix?: string; exclude_tests?: boolean; exclude_paths?: string[] }
 
-// ---- Continuous verification (Phase 10) ----
+// ---- Continuous verification ----
 export type GateOutcome = "PASS" | "FAIL" | "BLOCKED" | "INCOMPLETE";
 export type CvRunStatus = "queued" | "running" | "completed" | "cancelled" | "error";
 export type CvSource = "working_tree" | "staged" | "revisions" | "patch" | "manifest";
@@ -931,7 +931,7 @@ export interface CvCompare { run_id: string; baseline_id: string; persisted: boo
 export interface CvGateView { run_id: string; status: CvRunStatus; outcome: GateOutcome | null; policy_version: number; policy_snapshot: Loose; decision: CvGate; freshness: CvFreshness }
 export interface CvStartBody { source: CvSource; mode?: CvMode; base?: string; head?: string; paths?: string[]; patch?: string; coverage?: boolean; baseline_id?: string; confirm: boolean }
 
-// ---- Phase 11: CI/CD, change requests, release readiness ----
+// ---- CI/CD, change requests, release readiness ----
 export type CiReadiness = "READY" | "NOT_READY" | "BLOCKED" | "INCOMPLETE";
 export interface CiConnection {
   id: string; provider: "local" | "github"; external_repo: string; default_branch: string; enabled: boolean; enabled_events: string[]; status: string; status_context: string;
@@ -975,7 +975,7 @@ export interface CiReviewReport {
 }
 export interface CiReadinessPolicy { version: number; is_default: boolean; rules: Record<string, unknown>; precedence: string[]; can_edit: boolean }
 
-// ------------------------------------------------------------------------------------------------ security intelligence (Phase 12)
+// ------------------------------------------------------------------------------------------------ security intelligence
 export type SecSeverity = "critical" | "high" | "medium" | "low" | "info";
 export type SecStatus = "open" | "resolved" | "false_positive" | "accepted_risk" | "suppressed";
 export interface SecPriority { bucket: "P1" | "P2" | "P3" | "P4"; score: number; model: string; factors?: string[]; floored?: boolean }
@@ -1019,7 +1019,7 @@ export interface SecRemediation {
 }
 export interface SecReportSummary { id: string; scan_id: string; format: string; sha256: string; size_bytes: number; truncated: boolean; created_at: string; body?: string }
 
-// ---- Operational intelligence (Phase 13) ----
+// ---- Operational intelligence ----
 export interface OpsDependency { name: string; critical: boolean; state: string; latency_ms?: number; error_class?: string | null; detail?: string; probed?: boolean }
 export interface OpsHealth { status: string; critical_unavailable: string[]; degraded: string[]; dependencies: OpsDependency[]; cached: boolean; checked_at: number }
 export interface OpsOverview {

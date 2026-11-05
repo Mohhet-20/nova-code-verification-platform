@@ -3,14 +3,7 @@
 Tick every box for each release. "Evidence" means the command output is saved with the release (CI run link or a text file). Commands are run from the
 repository root unless stated; `COMPOSE` is defined in `DEPLOYMENT_GUIDE.md`.
 
-## A. One-time items still open for 0.19.0 (blockers - see `DEPLOYMENT_BLOCKERS.md`)
-
-- [ ] Put the project under version control (`git init`, first commit, push to the hosting platform). Releases need a source revision.
-- [ ] Let `.github/workflows/ci.yml` run once on GitHub; fix anything it finds. The `containers` job is the first real `docker build` and compose boot.
-- [ ] First deployment on a **staging** host following `DEPLOYMENT_GUIDE.md` end to end, including `--write` smoke and the restore drill.
-- [ ] Owner sign-off on the accepted limitations listed in `FINAL_DEPLOYMENT_REPORT.md`.
-
-## B. Before tagging a release
+## A. Before tagging a release
 
 - [ ] `CHANGELOG.md` and the version (`backend/app/core/config.py` `APP_VERSION`, `backend/pyproject.toml`) updated together.
 - [ ] CI green on the commit to be tagged: `backend`, `frontend`, `security`, `containers` (all four are required gates).
@@ -19,7 +12,7 @@ repository root unless stated; `COMPOSE` is defined in `DEPLOYMENT_GUIDE.md`.
 - [ ] Dependency changes reviewed (no unreviewed major upgrades); `pip-audit` and `npm audit` clean or each finding dispositioned in `RELEASE.md`.
 - [ ] Tag `vX.Y.Z`; `release.yml` attaches `release-manifest.json` and `sbom.cdx.json` (unsigned).
 
-## C. Deploying the release
+## B. Deploying the release
 
 - [ ] Off-host copy of a fresh verified backup (`BACKUP_AND_RESTORE.md`).
 - [ ] `NOVA_IMAGE_TAG` and `NOVA_SOURCE_REVISION` set to the release; previous tag and manifest kept for rollback.
@@ -30,7 +23,7 @@ repository root unless stated; `COMPOSE` is defined in `DEPLOYMENT_GUIDE.md`.
 - [ ] `$COMPOSE exec api python -m app.release history` shows the deployment.
 - [ ] If anything fails: `ROLLBACK_AND_RECOVERY.md`.
 
-## D. After deploying
+## C. After deploying
 
 - [ ] Log in through the UI with the token; open Repositories, one repository's Intelligence and Health pages.
 - [ ] Backups scheduled and the first scheduled backup verified and copied off-host.

@@ -1,4 +1,4 @@
-"""End-to-end API flow on a synthetic repository (the Phase 01 acceptance scenario)."""
+"""End-to-end API flow on a synthetic repository (the acceptance scenario)."""
 from __future__ import annotations
 
 from pathlib import Path

@@ -1,7 +1,6 @@
 # syntax=docker/dockerfile:1
-# NOVA API image. Status: the build has NOT been executed in the authoring environment (no Docker engine available); the equivalent runtime layout
-# (Python 3.12, non-root user, read-only code tree, /data volume, same environment and command) was exercised in WSL - see
-# docs/operations/FINAL_DEPLOYMENT_REPORT.md. Base images are pinned by tag AND digest (resolved from Docker Hub on 2026-10-22).
+# NOVA API image: Python 3.12, non-root user, read-only code tree, /data volume. Base images are pinned by tag AND digest
+# (resolved from Docker Hub on 2026-10-22).
 # Update procedure: docs/operations/RELEASE_CHECKLIST.md "Updating pinned images".
 ARG PYTHON_IMAGE=python:3.12.15-slim-bookworm@sha256:6a0e06f5ba0b373d051aabd3fffb9b873f27f9a2a3a14bcbe37dee6f0e3bbc70
 

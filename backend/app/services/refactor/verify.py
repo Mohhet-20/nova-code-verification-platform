@@ -1,4 +1,4 @@
-"""Behavior-preservation *evidence* for an applied refactoring, through the Phase 05 controlled test runner.
+"""Behavior-preservation *evidence* for an applied refactoring, controlled test runner.
 
 A verification selects discovered tests (never an arbitrary command), runs them in the restricted pytest subprocess and compares the result
 with a baseline run. ``PASSED`` means: the run completed, at least one selected test passed, none failed/errored/skipped, no failure is new

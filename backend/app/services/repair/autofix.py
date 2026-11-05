@@ -1,7 +1,7 @@
 """Deterministic fixes for a few static-analysis rules whose repair is mechanical.
 
 A fix is offered only when ALL of these hold; otherwise NOVA recommends and does not fabricate a patch:
-1. the finding was produced by the Phase 04 analyzers on the file as it is on disk right now;
+1. the finding was produced analyzers on the file as it is on disk right now;
 2. the exact source construct matches the transformer's narrow pattern (anything else is declined);
 3. the transformed file parses, and re-running the analyzers shows the targeted finding is gone and no rule/scope has gained findings.
 """

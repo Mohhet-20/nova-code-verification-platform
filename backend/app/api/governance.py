@@ -1,4 +1,4 @@
-"""Phase 15 governance API: organization members, teams, ownership, policies, workflows, review queue and governance audit.
+"""Governance API: organization members, teams, ownership, policies, workflows, review queue and governance audit.
 
 Every handler builds a server-side ``Principal`` from the authenticated identity; no role, team or approval claim is read
 from the request. Out-of-scope resources answer 404, in-scope but unauthorized operations answer 403.

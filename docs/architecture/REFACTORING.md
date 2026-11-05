@@ -1,15 +1,15 @@
-# Refactoring (Phase 09)
+# Refactoring
 
 AI-assisted-style refactoring that is **deterministic**: every transformation is computed from the index and the source, planned
-as a multi-file diff, validated in an isolated copy, approved by a human, applied atomically and verified through the Phase 05
+as a multi-file diff, validated in an isolated copy, approved by a human, applied atomically and verified
 runner. NOVA never executes proposed code, never commits or pushes, and never falls back to textual search-and-replace.
 
 ## Architecture
 `app/services/refactor/`: `registry` (15 catalog entries; 8 usable, 7 reported `unsupported`), `pyscope` + `rename_py` (Python scope
 analysis), `rename_js` (conservative tree-sitter JS/TS rename), `duplicates`, `extract` (Python extract-function), `simplify`
-(proposal-only), `cycles` (import-cycle suggestions), `impact`, `service` (lifecycle), `verify`. Reused: Phase 08 patch engine
-(`parse`, `build`, `validate_isolated`, `write_results`, `restore`), Phase 05 runner, Phase 04 static analysis, Phase 03 graph,
-Phase 07 test-state helper. Persistence: `refactor_transformations`, `refactor_verifications` (migration `0009`).
+(proposal-only), `cycles` (import-cycle suggestions), `impact`, `service` (lifecycle), `verify`. Reused: the repair patch engine
+(`parse`, `build`, `validate_isolated`, `write_results`, `restore`), runner, static analysis, graph,
+Test-state helper. Persistence: `refactor_transformations`, `refactor_verifications` (migration `0009`).
 
 Support levels: `applicable` (a diff NOVA will apply after approval), `proposal_only` (suggestions, never applied automatically),
 `unsupported` (reported honestly, no plan).
@@ -45,7 +45,7 @@ CRLF files and files without a final newline are blocked. The index is refreshed
 
 ## Impact and verification
 Impact lists direct and transitive dependents, import cycles (with proof), public entry points and affected tests. Verification
-runs the selected tests through the Phase 05 runner, compared with an explicit baseline (taken before approval/apply via
+runs the selected tests runner, compared with an explicit baseline (taken before approval/apply via
 `POST …/baseline`) or the latest finished run before apply, labelled implicit. Criteria: run completed, tests executed, no failures,
 no skips, no new failures, applied state intact, no new static findings; `behavior_equivalence` is always `unavailable`.
 Outcomes PASSED / FAILED / INCOMPLETE / BLOCKED. **PASSED means the selected tests passed — not that behavior is proven preserved.**
@@ -85,5 +85,5 @@ Files: `pkg/__init__.py`, `pkg/cart.py` (defines `add_item`, class `Cart` with m
 
 ## Limitations
 No JS scope resolution beyond imports; no type inference for method renames; extract-function is Python-only; CRLF and
-no-final-newline files unsupported; formatter/lint/type-check not run; verification is Phase 05 restricted-subprocess, not a
+no-final-newline files unsupported; formatter/lint/type-check not run; verification is restricted-subprocess, not a
 sandbox; behavior equivalence is not proven; not tested on Windows or in a real browser.

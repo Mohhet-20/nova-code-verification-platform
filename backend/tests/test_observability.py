@@ -1,4 +1,4 @@
-"""Observability, reliability and operational intelligence (Phase 13). Deterministic: no network, no real credentials, no sleeping."""
+"""Observability, reliability and operational intelligence. Deterministic: no network, no real credentials, no sleeping."""
 from __future__ import annotations
 
 import hashlib

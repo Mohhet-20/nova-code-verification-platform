@@ -1,4 +1,4 @@
-# Continuous verification, regression intelligence and quality gates (Phase 10)
+# Continuous verification, regression intelligence and quality gates
 
 Answers one question per change: *what evidence exists, for exactly this source state, that the change did not break the repository?*
 Everything is deterministic and computed from recorded runs. **A `PASS` is evidence under a policy, not proof of correctness.**
@@ -9,8 +9,8 @@ Everything is deterministic and computed from recorded runs. **A `PASS` is evide
 overview, staleness), `errors`. API: `app/api/verification.py` under `/api/v1/repositories/{id}/verification`. Persistence (migration
 `0010`): `cv_policies`, `cv_baselines`, `cv_runs`, `cv_checks`, `cv_events`. Planned checks and their results are `cv_checks` rows; the
 regression findings, coverage summary, static result, gate decision and policy snapshot are stored on the run as JSON so a decision is
-reproducible from the record. Reused, not duplicated: the Phase 05 restricted runner (`execution.begin_existing` / `run_execution`) and test
-discovery, Phase 04 static analysis, the Phase 03 index for dependents, the Phase 08/09 link types, `audit`, `RequestContext` roles.
+reproducible from the record. Reused, not duplicated: the restricted runner (`execution.begin_existing` `run_execution`) and test
+discovery, static analysis, the index for dependents, the link types, `audit`, `RequestContext` roles.
 
 ## Change detection (read-only)
 Sources: `working_tree` (tracked changes vs HEAD plus untracked files), `staged`, `revisions` (two commits; `HEAD`-style names are resolved
@@ -28,7 +28,7 @@ prerequisites. No endpoint accepts a command: only these checks can run. Selecti
 the change; the plan says so. An empty change set plans a blocked test check ("nothing to verify").
 
 ## Execution
-The test check creates a Phase 05 execution run (allow-listed pytest invocation, timeouts, bounded and redacted output). Running needs
+The test check creates a execution run (allow-listed pytest invocation, timeouts, bounded and redacted output). Running needs
 `confirm: true` and a non-viewer role. Runs execute as a background task; the UI polls. `cancel` takes effect between checks and rejects a
 pending execution; a pytest process already running is bounded by the runner timeout, not killed. Partial results are kept. Runs left
 `queued/running` by a restart are marked `error` with gate `BLOCKED` at startup. A working tree that changes while verifying yields
@@ -83,7 +83,7 @@ renders the backend outcome verbatim (no decision shows "No decision (status)"),
 ## Security
 Fixed argument arrays only; no user string reaches a shell; patch/manifest paths validated; cross-repository ids return 404; viewers get
 403 on writes; tampered baselines rejected; output bounded and secrets redacted; no absolute paths in responses. **Not a sandbox**: tests run
-as the NOVA user through the Phase 05 restricted subprocess, so only verify repositories you trust.
+as the NOVA user restricted subprocess, so only verify repositories you trust.
 
 ## Reproducible demonstration (executed on a disposable Git repository)
 Repo: `app_pkg/util.py` (`clamp`), `app_pkg/pricing.py`, `tests/test_util.py` (3 tests), `tests/test_pricing.py` (1), all committed.
@@ -96,7 +96,7 @@ Repo: `app_pkg/util.py` (`clamp`), `app_pkg/pricing.py`, `tests/test_util.py` (3
 Also verified: reverting to the committed state gives an empty change set → **BLOCKED** ("nothing to verify"), never PASS.
 
 ## Limitations
-Python/pytest only (the Phase 05 runner); static analysis only for Python files; other file types are "no verifier" → `INCOMPLETE`.
+Python/pytest only (the runner); static analysis only for Python files; other file types are "no verifier" → `INCOMPLETE`.
 Focused selection is import association. Cancellation does not kill a running pytest. A fingerprint cannot detect changes made between
-the check and the read of the same file. Runs use an in-process background task. No CI integration yet (Phase 11). Not verified on
+the check and the read of the same file. Runs use an in-process background task. No CI integration yet. Not verified on
 Windows, PostgreSQL or in a real browser.

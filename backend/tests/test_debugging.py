@@ -1,4 +1,4 @@
-"""Phase 06: failure ingestion, fingerprints, localization, investigations, impact and approved verification."""
+"""Failure ingestion, fingerprints, localization, investigations, impact and approved verification."""
 from __future__ import annotations
 
 import logging

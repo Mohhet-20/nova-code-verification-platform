@@ -55,7 +55,7 @@ class ExpectedCheck(BaseModel):
     name: str = Field(min_length=1, max_length=200)
     suggested_command: str | None = Field(default=None, max_length=300)
     rationale: str = Field(default="", max_length=1000)
-    # Always False in Phase 01: nothing is executed. Reserved for the verification runner.
+    # Always False: nothing is executed. Reserved for the verification runner.
     executed: bool = False
 
 

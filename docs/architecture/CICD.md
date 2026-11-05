@@ -1,6 +1,6 @@
-# CI/CD integration, pull-request intelligence and release readiness (Phase 11)
+# CI/CD integration, pull-request intelligence and release readiness
 
-NOVA connects the Phase 10 verification engine to change requests (pull requests or local branches), binds every result to an exact commit, and turns the evidence into a conservative release-readiness decision. It reuses `app/services/verification/` (change detection, `engine.run_job`, `gate`, policy versions, staleness); it adds no second runner or gate engine.
+NOVA connects the verification engine to change requests (pull requests or local branches), binds every result to an exact commit, and turns the evidence into a conservative release-readiness decision. It reuses `app/services/verification/` (change detection, `engine.run_job`, `gate`, policy versions, staleness); it adds no second runner or gate engine.
 
 ## Architecture
 
@@ -37,7 +37,7 @@ Order of checks: connection lookup (unknown or local → 404; disabled → 403) 
 Nothing in a payload is executed, fetched, or trusted as a path or URL. A webhook **never starts test execution**: pull-request code is untrusted. It upserts the change request, invalidates earlier verification when the head moved, and records an idempotent *awaiting* workflow run. An authorised user starts verification explicitly (`confirm=true`). Events older than the recorded state (`updated_at`) are ignored, so out-of-order delivery cannot move the head backwards.
 
 ## Revision-bound verification
-A workflow run stores the exact `head_sha`/`base_sha` it verified and the Phase 10 run id. The Phase 10 revision binding still applies: the head must equal the checked-out `HEAD` with a clean tree, otherwise the tests check is **BLOCKED** (NOVA never checks out another revision). When the change request's head moves, every earlier workflow run is *stale*: its readiness is reported as BLOCKED (`readiness_effective`), and no external status for the old SHA can be `success` for the new head.
+A workflow run stores the exact `head_sha`/`base_sha` it verified and the run id. The revision binding still applies: the head must equal the checked-out `HEAD` with a clean tree, otherwise the tests check is **BLOCKED** (NOVA never checks out another revision). When the change request's head moves, every earlier workflow run is *stale*: its readiness is reported as BLOCKED (`readiness_effective`), and no external status for the old SHA can be `success` for the new head.
 
 Idempotency: the start key hashes (change request, head, base, mode, verification policy version, readiness policy version). An identical start returns the existing run (`reused: true`); `force` creates a new attempt; a different start while a run is active returns 409 `verification_in_progress`. Nothing is deleted, merged, pushed or checked out.
 
@@ -47,7 +47,7 @@ Outcomes: `READY`, `NOT_READY`, `BLOCKED`, `INCOMPLETE`; precedence `NOT_READY >
 | Rule | Pass when |
 |---|---|
 | `revision_current` | the evidence is for the change request's current head |
-| `revision_verified` / `quality_gate` | a completed Phase 10 run exists and its gate is PASS |
+| `revision_verified` `quality_gate` | a completed run exists and its gate is PASS |
 | `check:<id>` | each required check (default `syntax`, `static_analysis`, `tests`) passed; optional checks must pass unless the policy allows unresolved ones |
 | `no_disallowed_findings` | no new static findings in the blocked severities |
 | `evidence_recent` | the run finished within `max_evidence_age_hours` (default 168) |
@@ -92,8 +92,8 @@ Run on a disposable Git repository. Lines marked **[MOCKED]** use an in-process 
 * Live GitHub behaviour is **unverified**: only the mocked transport was exercised. GitHub Enterprise Server, GitLab, Bitbucket and Azure DevOps are not implemented (the adapter interface is provider-neutral).
 * Webhook delivery needs a reachable URL; there is no queue — retries of status reports are user/API-triggered, not a background scheduler.
 * Verification is Python/pytest only and bound to the checked-out revision: for a GitHub pull request the head must be checked out locally before NOVA can verify it.
-* Readiness and gate results are decision support. Security analysis, dependency/supply-chain checks, deployment and migration evidence are not performed (Phase 12 and later).
-* Workflow actions are referenced by major version tag; pin to commit SHAs in a security-sensitive repository (SHAs could not be verified from the authoring environment).
+* Readiness and gate results are decision support. Security analysis, dependency/supply-chain checks, deployment and migration evidence are not performed (and later).
+* Workflow actions are referenced by major version tag; pin to commit SHAs in a security-sensitive repository (SHAs could not be verified from the development environment).
 * Webhook replay protection is per delivery id; GitHub does not sign a timestamp, so a captured, signed payload with a fresh delivery id would be accepted (its effect is limited to upserting a change request to a state at least as new as the recorded one).
 * Not verified on Windows, in a real browser, on PostgreSQL or Python 3.11.
 

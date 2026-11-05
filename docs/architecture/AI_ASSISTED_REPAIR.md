@@ -1,6 +1,6 @@
 # AI-assisted repair: Claude proposes, NOVA verifies
 
-NOVA's repair workflow (Phase 08) produces patches from three sources. Only the third uses a language model, and it is off by default.
+NOVA's repair workflow produces patches from three sources. Only the third uses a language model, and it is off by default.
 
 | Source | Produced by | Trust before review |
 |---|---|---|

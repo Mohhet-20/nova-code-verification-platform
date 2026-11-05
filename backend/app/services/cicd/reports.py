@@ -91,7 +91,7 @@ def collect(db: Session, settings: Settings, repo: Repository, cr: ChangeRequest
                for r in db.scalars(select(CodeReview).where(CodeReview.repository_id == repo.id, CodeReview.head_sha == cr.head_sha, CodeReview.base_sha == cr.base_sha)
                                    .order_by(CodeReview.created_at.desc()).limit(5))] if cr.base_sha else []
     if not reviews:
-        gaps.append("No Phase 07 code review exists for this exact base/head pair, so no change-risk assessment is included.")
+        gaps.append("No code review exists for this exact base/head pair, so no change-risk assessment is included.")
     if cr.files_source == "unknown":
         gaps.append("The changed-file list is unknown (not available locally and not fetched from the provider).")
     reports = list(db.scalars(select(CiStatusReport).where(CiStatusReport.workflow_run_id == wf.id).order_by(CiStatusReport.created_at))) if wf else []

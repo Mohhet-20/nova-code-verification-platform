@@ -1,4 +1,4 @@
-"""Phase 04: static analysis rules, orchestration, lifecycle, configuration, API and redaction."""
+"""Static analysis rules, orchestration, lifecycle, configuration, API and redaction."""
 from __future__ import annotations
 
 import json

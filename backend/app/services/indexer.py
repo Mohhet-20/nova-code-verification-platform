@@ -1,4 +1,4 @@
-"""Safe, bounded, local-only repository file discovery (the "file_discovery" role of Phase 02).
+"""Safe, bounded, local-only repository file discovery (the "file_discovery" role).
 
 The scanner never follows symbolic links, never reads outside the canonical repository root, never
 stores file contents, and never records the *names* of skipped credential files.

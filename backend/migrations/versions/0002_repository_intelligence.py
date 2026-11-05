@@ -147,7 +147,7 @@ def upgrade() -> None:
         batch_op.add_column(sa.Column('import_count', sa.Integer(), server_default='0', nullable=False))
         batch_op.add_column(sa.Column('parse_diagnostics', sa.JSON(), server_default=sa.text("'[]'"), nullable=False))
 
-    # Existing Phase 01 rows keep their data: backfill the owning repository from their snapshot.
+    # Existing rows keep their data: backfill the owning repository from their snapshot.
     op.execute(
         "UPDATE indexed_files SET repository_id = "
         "(SELECT repository_id FROM index_snapshots WHERE index_snapshots.id = indexed_files.snapshot_id)"

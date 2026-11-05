@@ -1,4 +1,4 @@
-"""Execution of a planned run. Only the checks in the plan can run; the test check goes through the Phase 05 restricted runner.
+"""Execution of a planned run. Only the checks in the plan can run; the test check goes restricted runner.
 
 Cancellation takes effect between checks: a pytest process that is already running is bounded by the runner's own timeout and is not killed.
 Partial results are always kept.

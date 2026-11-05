@@ -316,7 +316,7 @@ def request_verification(repository_id: str, investigation_id: str, body: Verifi
                          ctx: RequestContext = Depends(get_context), db: Session = Depends(get_db),
                          settings: Settings = Depends(get_settings)) -> Any:
     """Without ``confirm`` this only previews the execution request. With ``confirm`` it approves and starts a run through
-    the Phase 05 workflow (discovered tests only, restricted subprocess, one active run per repository)."""
+    the workflow (discovered tests only, restricted subprocess, one active run per repository)."""
     ctx.require_write()
     repo = svc.get_repository(db, ctx, repository_id)
     inv = _inv(db, repo, investigation_id)

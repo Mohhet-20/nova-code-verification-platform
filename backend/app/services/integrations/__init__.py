@@ -1,1 +1,1 @@
-"""Phase 16: enterprise integrations."""
+"""Enterprise integrations."""

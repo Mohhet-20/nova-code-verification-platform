@@ -1,6 +1,6 @@
-"""Review findings: Phase 04 analyzers run on the reviewed content (not duplicated), plus a few evidence-backed change checks.
+"""Review findings: the static analyzers run on the reviewed content (not duplicated), plus a few evidence-backed change checks.
 
-Identity: analyzer findings keep the Phase 04 fingerprint, so the same construct is one finding whether it came from this
+Identity: analyzer findings keep the fingerprint, so the same construct is one finding whether it came from this
 review's analyzer run or from the stored static-analysis findings. Heuristic findings hash (rule, path, scope, discriminator);
 line numbers are never part of an identity.
 """

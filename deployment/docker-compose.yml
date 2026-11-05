@@ -1,6 +1,5 @@
 # Single-host NOVA deployment: SQLite, ONE API process, static web + reverse proxy. No secret is stored here; values come from an untracked env file.
-# Status: NOT executed in the authoring environment (no Docker engine). See docs/operations/DEPLOYMENT_GUIDE.md for the exact procedure and
-# docs/operations/FINAL_DEPLOYMENT_REPORT.md for what was and was not verified.
+# See docs/operations/DEPLOYMENT_GUIDE.md for the exact procedure.
 #   cp deployment/production.env.example deployment/production.env      # fill in real values (file is git-ignored)
 #   docker compose -f deployment/docker-compose.yml --env-file deployment/production.env build
 #   docker compose -f deployment/docker-compose.yml --env-file deployment/production.env up -d

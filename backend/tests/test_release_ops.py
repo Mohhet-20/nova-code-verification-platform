@@ -1,5 +1,5 @@
 # ruff: noqa: E702, E701  (compact test setup lines)
-"""Phase 17: production config contract, migration control, backup/restore integrity, rollback planning, manifest, and a real-process smoke test."""
+"""Production config contract, migration control, backup/restore integrity, rollback planning, manifest, and a real-process smoke test."""
 from __future__ import annotations
 
 import json

@@ -1,6 +1,6 @@
-# Final security audit (Phase 18)
+# Security audit
 
-Assessed 2026-10-21 against the repository as it stands (not a git checkout; no revision id). Method: manual review of critical paths, targeted regression tests, route-wide sweeps over the live OpenAPI document (307 operations), dependency and secret scans. **This is not a penetration test and not a complete audit**; nothing was run against external targets.
+Assessed 2026-10-21 against the repository at that date. Method: manual review of critical paths, targeted regression tests, route-wide sweeps over the live OpenAPI document (307 operations), dependency and secret scans. **This is not a penetration test and not a complete audit**; nothing was run against external targets.
 
 ## Controls verified by executed tests
 
@@ -18,7 +18,7 @@ Assessed 2026-10-21 against the repository as it stands (not a git checkout; no 
 | Webhook verification and replay | HMAC verification, uniform rejection, delivery-id dedupe, no status downgrade, secret rotation (`test_integrations`) | pass |
 | Credential leakage | sweep: no GET body contains any issued token; secrets never in responses/DB/audit (`test_integrations`); health/config errors name settings, never values (`test_release_ops`) | pass |
 | Weak production secrets | production contract rejects missing/short/placeholder tokens, wildcard CORS, relaxed SSRF guard, public metrics, invalid encryption key; startup refuses | pass |
-| Resource exhaustion | **F-001 fixed** (global body limit, 413); malformed/deeply nested JSON fuzz on all mutating operations: no 5xx; indexing/job limits from earlier phases | pass |
+| Resource exhaustion | **F-001 fixed** (global body limit, 413); malformed/deeply nested JSON fuzz on all mutating operations: no 5xx; indexing/job limits from earlier work | pass |
 | Information disclosure on failure | **F-002 fixed** (storage failures → 503 `database_unavailable`, no paths/SQL in body); corruption mid-flight test | pass |
 | Audit coverage / integrity | denials and workflow actions audited; append-only enforced by SQLite triggers (`test_governance`) | pass, see residual |
 | Untrusted generated patches / test execution | patches validated in isolation, base-hash checked; tests run in a restricted subprocess | pass with residual |
@@ -29,7 +29,7 @@ Assessed 2026-10-21 against the repository as it stands (not a git checkout; no 
 |---|---|---|
 | F-001 No global request-body size limit (64 MB body fully parsed) | Medium | **Fixed** + regression test |
 | F-002 Storage failures reported as generic 500 | Low | **Fixed** + regression test |
-| F-005 Audit immutability depends on SQLite triggers removable with file write access | Medium (accepted, documented since Phase 15) | Open |
+| F-005 Audit immutability depends on SQLite triggers removable with file write access | Medium (accepted, documented) | Open |
 | F-007 Inbound rate limiting is per process; no retention purge job | Medium | Open |
 | F-011 Test execution is a restricted subprocess, not a sandbox; a native tree-sitter crash would end the process | Medium | Open (documented threat model) |
 | F-012 Container/image scanning, DAST, signed releases not performed | Medium | Open (tooling unavailable) |

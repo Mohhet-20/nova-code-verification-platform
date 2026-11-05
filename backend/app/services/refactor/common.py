@@ -1,6 +1,6 @@
 """Shared building blocks of the refactoring subsystem: the workspace view of a repository, the edit model and findings.
 
-Everything here reads files from disk through the Phase 08 path rules (no symlinks, repository-relative, allow-listed types) and never
+Everything here reads files from disk path rules (no symlinks, repository-relative, allow-listed types) and never
 writes. The *plan* an engine returns is plain data (JSON-serialisable) so it can be stored, reviewed and re-checked later.
 """
 from __future__ import annotations

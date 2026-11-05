@@ -1,4 +1,4 @@
-"""Release-readiness: a transparent decision that *reuses* the Phase 10 quality gate and adds revision, freshness and policy criteria.
+"""Release-readiness: a transparent decision that *reuses* the quality gate and adds revision, freshness and policy criteria.
 
 Outcomes and precedence (strongest first): NOT_READY > BLOCKED > INCOMPLETE > READY.
 * NOT_READY - a required criterion definitively failed.
@@ -133,7 +133,7 @@ def evaluate(db: Session, settings: Any, repo: Repository, cr: ChangeRequest, wf
         _ops_rule(db, repo, rules, out)
         return _decide(out, wf, cr, version, rules, run)
 
-    # 3. the Phase 10 quality gate, unchanged
+    # 3. the quality gate, unchanged
     gs = GATE_STATUS.get(run.gate_outcome or "", "blocked")
     out.append(_rule("quality_gate", gs, True, f"The quality gate decided {run.gate_outcome or 'nothing'}: {run.reason or 'no reason recorded'}", {"cv_run_id": run.id, "gate": run.gate_outcome}))
     # 4. required / optional checks
@@ -152,7 +152,7 @@ def evaluate(db: Session, settings: Any, repo: Repository, cr: ChangeRequest, wf
             out.append(_rule(f"check:{cid}", "n/a", False, f"Optional '{cid}' is unresolved ({c.status if c else 'not run'}); the policy allows that."))
         else:
             out.append(_rule(f"check:{cid}", "incomplete", True, f"Optional '{cid}' is unresolved ({c.status if c else 'not run'})."))
-    # 5. disallowed new findings (severity comes from the Phase 04 rule catalogue; unknown severities are listed, never ignored silently)
+    # 5. disallowed new findings (severity comes rule catalogue; unknown severities are listed, never ignored silently)
     new = (run.static_result or {}).get("new_findings") or []
     sev = [(f.get("rule_id", "?"), _severity(str(f.get("rule_id", "")))) for f in new if isinstance(f, dict)]
     bad = [r for r, s in sev if s in rules["blocked_finding_severities"]]

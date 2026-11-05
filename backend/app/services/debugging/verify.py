@@ -1,4 +1,4 @@
-"""Approved reruns and the comparison with the original failure. Execution always goes through the Phase 05 workflow."""
+"""Approved reruns and the comparison with the original failure. Execution always goes workflow."""
 from __future__ import annotations
 
 from typing import Any

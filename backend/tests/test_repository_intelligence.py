@@ -1,4 +1,4 @@
-"""Index consistency, incremental behaviour, relationships and failure handling (Phase 02)."""
+"""Index consistency, incremental behaviour, relationships and failure handling."""
 from __future__ import annotations
 
 from pathlib import Path

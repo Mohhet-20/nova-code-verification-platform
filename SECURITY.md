@@ -10,7 +10,7 @@ Please **do not open a public issue**. Use GitHub's private vulnerability report
 ## Scope and design notes
 
 * The security model, threat model and known limitations are documented in `docs/architecture/SECURITY_MODEL.md`,
-  `docs/security/` and `docs/operations/DEPLOYMENT_BLOCKERS.md`.
+  `docs/security/` and `docs/operations/KNOWN_LIMITATIONS.md`.
 * Approved repository test runs execute repository code in a restricted subprocess, **not a sandbox**. Register only trusted repositories when
   `NOVA_TEST_EXECUTION_ENABLED=true` (the production template sets it to `false`).
 * AI-assisted repair (`NOVA_AI_PROVIDER=anthropic`, off by default) sends an investigation's relevant files, after secret scrubbing, to Anthropic

@@ -1,4 +1,4 @@
-"""Verification of an applied patch through the Phase 05 controlled test-execution boundary.
+"""Verification of an applied patch controlled test-execution boundary.
 
 NOVA never runs a command from a request body: a verification selects *discovered* tests, and ``execution.begin_existing`` runs them in
 the restricted pytest subprocess (timeout, minimal environment, bounded output). A patch is ``verified`` only when every required
@@ -271,7 +271,7 @@ def evaluate(db: Session, ctx: RequestContext | None, settings: Settings, repo: 
 
 
 def run_job(session_factory: Any, settings: Settings, run_id: str, verification_id: str) -> None:
-    """Background task: run the tests, then decide the outcome. The test run itself is the Phase 05 one."""
+    """Background task: run the tests, then decide the outcome. The test run itself is the one."""
     with session_factory() as db:
         execution.run_execution(db, settings, run_id)
     with session_factory() as db:

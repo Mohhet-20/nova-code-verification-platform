@@ -1,5 +1,5 @@
 # ruff: noqa: F811
-"""Phase 11: provider adapters, webhook security, change requests, revision-bound workflows, readiness, status reporting and reports.
+"""Provider adapters, webhook security, change requests, revision-bound workflows, readiness, status reporting and reports.
 
 Only the provider HTTP boundary is mocked (``service.TRANSPORT``). Git, the verification engine, the test runner, the database and the
 readiness/report code are real. All secrets below are synthetic.

@@ -1,6 +1,6 @@
-# Bug localization, root-cause analysis and evidence-based debugging (Phase 06)
+# Bug localization, root-cause analysis and evidence-based debugging
 
-NOVA turns a test failure into a stored, de-duplicated **failure report**, ranks the repository locations most worth reading first (a **heuristic**, never a probability), builds an **investigation** that keeps observed facts apart from unverified hypotheses, and checks a user-approved rerun against the original failure. No part of this phase edits repository files, guesses a revision, or claims a bug is fixed.
+NOVA turns a test failure into a stored, de-duplicated **failure report**, ranks the repository locations most worth reading first (a **heuristic**, never a probability), builds an **investigation** that keeps observed facts apart from unverified hypotheses, and checks a user-approved rerun against the original failure. No part of this layer edits repository files, guesses a revision, or claims a bug is fixed.
 
 ## Data model (migration `0006`)
 `failure_reports` (unique `repository_id + fingerprint`), `failure_frames` (unique `failure_id + idx`), `failure_occurrences` (unique `failure_id + execution_run_id`), `localization_candidates` (unique `failure_id + rank`), `investigations` (at most one non-closed per failure, enforced by a partial unique index), `verification_runs`. All are scoped to a repository and workspace; every endpoint resolves the repository through the caller's workspace first, so another repository's ids return 404.
@@ -13,7 +13,7 @@ NOVA turns a test failure into a stored, de-duplicated **failure report**, ranks
 | `pytest_text` | pasted pytest failure text | frames `path:line: in func`, `path:line: ExcType`, `E   Type: msg` lines |
 | `python_traceback` | a pasted Python traceback | `File "...", line N, in f` frames |
 | `junit_xml` | JUnit XML | failures and errors; collection errors (`classname=""`) become `collection_error`; DOCTYPE/ENTITY is rejected |
-| `execution_run` | `execution_run_id` of a Phase 05 run | uses the failures the run already stored; 409 if the run is unfinished or has none |
+| `execution_run` | `execution_run_id` of a run | uses the failures the run already stored; 409 if the run is unfinished or has none |
 
 Only text sent in the request (or stored by an earlier approved run) is parsed. NOVA never reads log files or any supplied path, never executes anything during ingest, and never invents a commit hash (`revision` is null unless known). Text is limited by `NOVA_DEBUG_MAX_REPORT_BYTES` (default 65 536, HTTP 413) and frames by `NOVA_DEBUG_MAX_FRAMES` (60). Control characters and ANSI codes are stripped, the repository root becomes `<repo>`, remaining absolute paths become `<path>/name`, and credential-like values are replaced with `[REDACTED]`. A path that resolves outside the repository (`..`, other roots) is never mapped to a file; it is shown as `<outside-repository>/name` with a warning. Site-packages and the standard library are labelled `dependency` and `runtime` scope.
 
@@ -48,7 +48,7 @@ Override individual weights with `NOVA_DEBUG_WEIGHTS_JSON` (a JSON object of kno
 **Impact** (`impact`) walks resolved file dependents breadth-first to `NOVA_DEBUG_IMPACT_DEPTH` (default 2, max 4, at most 200 nodes). Cycles are handled. Relationships are `confirmed_import` (resolved, observed) or `likely_association`; unresolved imports, undiscovered tests, an empty graph and truncation are listed as limitations. Missing data means *unknown*, not *no impact*.
 
 ## Verification
-`POST investigations/{id}/verification`: without `confirm` it **only previews** the request (`executes: false`, the exact test ids, and a statement that execution is a restricted subprocess, not a sandbox). With `confirm: true` it starts a run through the Phase 05 workflow: targets must be discovered tests (invalid ids are 422), one active run per repository, `viewer` roles are refused (403). If the test infrastructure is unavailable the outcome is `INCONCLUSIVE`.
+`POST investigations/{id}/verification`: without `confirm` it **only previews** the request (`executes: false`, the exact test ids, and a statement that execution is a restricted subprocess, not a sandbox). With `confirm: true` it starts a run workflow: targets must be discovered tests (invalid ids are 422), one active run per repository, `viewer` roles are refused (403). If the test infrastructure is unavailable the outcome is `INCONCLUSIVE`.
 
 | outcome | meaning |
 |---|---|
@@ -78,7 +78,7 @@ curl -X POST $API/repositories/$R/investigations/$I/verification -H 'content-typ
 Parsing is stdlib-only and never executes input. Reports are size-limited, sanitized before storage, and responses and logs carry no absolute paths or credentials (tested). Authorization and workspace/repository isolation are server-side. Verification runs repository test code in a restricted subprocess that is **not a sandbox**.
 
 ## Settings
-`NOVA_DEBUG_MAX_REPORT_BYTES`, `NOVA_DEBUG_MAX_FRAMES`, `NOVA_DEBUG_MAX_CANDIDATES`, `NOVA_DEBUG_IMPACT_DEPTH`, `NOVA_DEBUG_WEIGHTS_JSON`, plus the Phase 05 `NOVA_ARTIFACT_DIR` and `NOVA_TEST_*`.
+`NOVA_DEBUG_MAX_REPORT_BYTES`, `NOVA_DEBUG_MAX_FRAMES`, `NOVA_DEBUG_MAX_CANDIDATES`, `NOVA_DEBUG_IMPACT_DEPTH`, `NOVA_DEBUG_WEIGHTS_JSON`, plus the `NOVA_ARTIFACT_DIR` and `NOVA_TEST_*`.
 
 ## Windows (PowerShell)
 ```powershell
@@ -88,7 +88,7 @@ $env:NOVA_ARTIFACT_DIR = "$PWD\data\artifacts"
 .\.venv\Scripts\python.exe -m alembic upgrade head
 .\.venv\Scripts\python.exe -m pytest tests\test_debugging.py -q
 ```
-Windows is **not verified** in this phase; path handling for `C:\...` frames is unit-tested on Linux only, and resource limits for reruns are not enforced on Windows.
+Windows is **not verified**; path handling for `C:\...` frames is unit-tested on Linux only, and resource limits for reruns are not enforced on Windows.
 
 ## Troubleshooting
 * *409 "not indexed"*: index the repository first; frames cannot be mapped without an index.

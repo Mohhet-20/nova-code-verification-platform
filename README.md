@@ -65,7 +65,7 @@ Details, threat model and the 13 tests (fake client, no network): [`docs/archite
   run when it would destroy data; tamper-evident backups.
 * **Production posture:** startup refuses weak or placeholder secrets and stale schemas; per-client throttling of invalid tokens; security headers;
   read-only, non-root containers with digest-pinned images; a CI job that boots the stack and runs end-to-end smoke tests and a restore.
-* **Honest status reporting:** every limitation is written down — see [`docs/operations/FINAL_DEPLOYMENT_REPORT.md`](docs/operations/FINAL_DEPLOYMENT_REPORT.md)
+* **Honest status reporting:** every limitation is written down — see [`docs/operations/KNOWN_LIMITATIONS.md`](docs/operations/KNOWN_LIMITATIONS.md)
   (for example, the container images have not yet been built on real Docker).
 
 **Stack:** Python 3.12, FastAPI, SQLAlchemy 2, Alembic, SQLite, tree-sitter, Anthropic SDK · React 19, TypeScript, Vite, TanStack Query,
@@ -81,15 +81,13 @@ flowchart LR
   A -.opt-in.-> G[GitHub / OSV / webhooks]
 ```
 
-## How this was built
+## Design decisions
 
-NOVA was built phase by phase. Each of the 19 phases started from a written
-specification that states the requirements, the safety rules and what counts as done. Every phase ended with tests,
-a verification log ([`docs/implementation/VERIFICATION_LOG.md`](docs/implementation/VERIFICATION_LOG.md)) and an explicit list of what was *not*
-verified. The interesting engineering is in the decisions written down in `docs/`: why the model only
+The interesting engineering is in the decisions written down in `docs/`: why the model only
 proposes, why restores never happen in place, how a secret leak and a concurrency collapse were found and proven fixed.
+Every feature ships with tests and an explicit list of what it does *not* do.
 
-Deployment: [`docs/operations/DEPLOYMENT_GUIDE.md`](docs/operations/DEPLOYMENT_GUIDE.md) · Architecture: [`docs/operations/ARCHITECTURE_AND_NETWORKING.md`](docs/operations/ARCHITECTURE_AND_NETWORKING.md) · Status: [`docs/implementation/PROJECT_STATUS.md`](docs/implementation/PROJECT_STATUS.md)
+Deployment: [`docs/operations/DEPLOYMENT_GUIDE.md`](docs/operations/DEPLOYMENT_GUIDE.md) · Architecture: [`docs/operations/ARCHITECTURE_AND_NETWORKING.md`](docs/operations/ARCHITECTURE_AND_NETWORKING.md) · Limitations: [`docs/operations/KNOWN_LIMITATIONS.md`](docs/operations/KNOWN_LIMITATIONS.md)
 
 ## Quick start (Windows PowerShell)
 Prerequisites: Python 3.11+ (the full suite passes on Windows / 3.11 and Linux / 3.12), Node.js 20.19+ or 22.12+, npm. Git is needed for code review and CI features.
@@ -155,13 +153,13 @@ for first index, re-index, freshness and search along with the environment. Numb
 - **A language shows “Parser unavailable”** — the tree-sitter packages in `backend/requirements.txt` could not be loaded; reinstall them. NOVA still runs and says so.
 - **UI says “API unavailable or not migrated”** — start the backend and run `alembic upgrade head` (check `GET /api/v1/ready`).
 - **“Repository path does not exist”** — the path must exist on the machine running the *backend* and be absolute.
-- **“Indexing is already in progress”** — a previous run is still going (or the backend was killed mid-run; see `docs/implementation/PROJECT_STATUS.md` known defects).
+- **“Indexing is already in progress”** — a previous run is still going (or the backend was killed mid-run; see `docs/operations/RUNBOOK.md`).
 - **401 Unauthorized** — the backend has `NOVA_API_TOKEN` set, or you are using a per-user token that was rotated or removed; enter a valid token under **Settings & help**.
 - **Port in use** — change `--port` and set `NOVA_BACKEND_URL` for the Vite proxy.
 - **Execution policy blocks scripts** — run them with `powershell -ExecutionPolicy Bypass -File …` as shown.
 
 ## Documentation
-`docs/implementation/PROJECT_STATUS.md` · `docs/architecture/OVERVIEW.md` · `docs/architecture/SECURITY_MODEL.md` ·
+`docs/operations/KNOWN_LIMITATIONS.md` · `docs/architecture/OVERVIEW.md` · `docs/architecture/SECURITY_MODEL.md` ·
 `docs/architecture/REPOSITORY_INTELLIGENCE.md` · `docs/architecture/INDEXING_DATA_MODEL.md` · `docs/security/REPOSITORY_INDEXING_THREAT_MODEL.md` ·
 `docs/architecture/AI_ASSISTED_REPAIR.md` (Claude proposals) · `docs/operations/README.md` (deployment and operations) · `docs/architecture/OBSERVABILITY.md` (health, metrics, alerts, SLOs; UI at `/operations`) · `docs/architecture/PERFORMANCE.md` (benchmarks, budgets, optimizations) · `docs/architecture/INTEGRATIONS.md` (integrations, credentials, webhooks, API contracts, extensions; UI at `/integrations`) · `docs/architecture/GOVERNANCE.md` (teams, roles, policies, approval workflows, review queue, audit; UI at `/governance`) · `docs/implementation/VERIFICATION_LOG.md` · `CONTRIBUTING.md` · `CHANGELOG.md`
 

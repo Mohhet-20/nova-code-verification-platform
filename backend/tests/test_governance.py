@@ -1,4 +1,4 @@
-"""Phase 15: teams, authorization, tenant isolation, policies, workflows, review queue and audit - including abuse cases."""
+"""Teams, authorization, tenant isolation, policies, workflows, review queue and audit - including abuse cases."""
 from __future__ import annotations
 
 import sqlite3

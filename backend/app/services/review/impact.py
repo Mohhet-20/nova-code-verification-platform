@@ -1,4 +1,4 @@
-"""Dependency-aware impact of a set of changed files, reusing the Phase 06 bounded breadth-first traversal (cycles cannot loop)."""
+"""Dependency-aware impact of a set of changed files, reusing the bounded breadth-first traversal (cycles cannot loop)."""
 from __future__ import annotations
 
 from typing import Any

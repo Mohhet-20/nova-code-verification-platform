@@ -1,4 +1,4 @@
-"""Security rules that use light intraprocedural *taint tracking* (Phase 12).
+"""Security rules that use light intraprocedural *taint tracking*.
 
 A value is "tainted" when it comes from an obvious untrusted source (request objects, ``input()``, ``sys.argv``, parameters of web-route handlers) and flows
 through assignments, string formatting, concatenation and ordinary calls into a sensitive call. This is a conservative, single-function approximation:

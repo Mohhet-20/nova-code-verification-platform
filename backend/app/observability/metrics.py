@@ -157,7 +157,7 @@ GOV_TRANSITIONS = REGISTRY.counter("nova_governance_transitions_total", "Governa
 GOV_QUEUE_DEPTH = REGISTRY.gauge("nova_governance_queue_open_items", "Open review-queue items (last dashboard/health read)")
 GOV_PENDING = REGISTRY.gauge("nova_governance_workflows_in_review", "Workflow instances waiting for approval (last dashboard/health read)")
 GOV_WORKFLOW_SECONDS = REGISTRY.histogram("nova_governance_workflow_duration_seconds", "Time from submission to a terminal workflow state", ("outcome",))
-# Phase 16 integrations. Labels are bounded enums (integration type, result, category); never ids, URLs or user input.
+# Integrations. Labels are bounded enums (integration type, result, category); never ids, URLs or user input.
 INT_TESTS = REGISTRY.counter("nova_integration_connection_tests_total", "Integration connection tests", ("integration_type", "result"))
 INT_INBOUND = REGISTRY.counter("nova_integration_inbound_total", "Inbound integration deliveries by outcome", ("integration_type", "outcome"))
 WEBHOOK_ATTEMPTS = REGISTRY.counter("nova_webhook_delivery_attempts_total", "Outbound webhook delivery attempts", ("result",))

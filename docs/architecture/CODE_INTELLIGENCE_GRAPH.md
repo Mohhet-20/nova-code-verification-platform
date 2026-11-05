@@ -1,8 +1,8 @@
-# Code Intelligence: Call Graph, Dependency Analysis and Impact Assessment (Phase 03)
+# Code Intelligence: Call Graph, Dependency Analysis and Impact Assessment
 
-Phase 03 adds call-site extraction, a persisted dependency graph, graph algorithms (traversal, cycles, depth), change-impact
-analysis, an index-status/rebuild workflow and a metrics endpoint on top of the Phase 02 index.
-Read `REPOSITORY_INTELLIGENCE.md` and `INDEXING_DATA_MODEL.md` first; this document only covers what Phase 03 adds or changes.
+Adds call-site extraction, a persisted dependency graph, graph algorithms (traversal, cycles, depth), change-impact
+analysis, an index-status/rebuild workflow and a metrics endpoint on top index.
+Read `REPOSITORY_INTELLIGENCE.md` and `INDEXING_DATA_MODEL.md` first; this document only covers what adds or changes.
 
 **Everything here is static analysis of source text.** Nothing is executed or imported. Results are estimates; the API and UI say so.
 
@@ -55,7 +55,7 @@ never edges. Edge confidence is expressed by `status` plus `evidence`; there is 
 
 ## 3. Resolution rules
 
-**Imports** are resolved globally on each run (Phase 02 rules: relative levels, packages, `index` files, extension probing, declared dependencies).
+**Imports** are resolved globally on each run (rules: relative levels, packages, `index` files, extension probing, declared dependencies).
 
 **Calls** (`call_resolver.py`) use only names, same-file scope, direct import bindings and simple inheritance:
 
@@ -121,7 +121,7 @@ re-export chains, and names introduced by `exec`/`eval`/`getattr`.
 | `GET /dependencies/impact?path=\|file_id=\|symbol_id=&max_depth=1..10&page=&page_size=` | change impact with explanations, cycle warnings and disclaimer |
 | `GET /dependencies/cycles?severity=&min_size=&page=&page_size=` | structural cycles with severity rules |
 | `GET /index/status?include_pending=` | `never_indexed`, `running`, `completed`, `completed_with_warnings`, `failed`; the generation being served; files awaiting indexing |
-| `POST /index` (Phase 02) / `POST /index/rebuild` | incremental / full indexing (202; 409 if one is running) |
+| `POST /index` `POST /index/rebuild` | incremental full indexing (202; 409 if one is running) |
 | `GET /metrics?include_pending=` | counts, edge/import/call breakdowns, cycles, max depth, parse failures, and a `definitions` map explaining each metric |
 
 Errors use the standard envelope. Invalid paging or enum values give 422; a path containing `..`, an absolute path, a drive prefix or NUL gives 400 `unsafe_path`
@@ -151,8 +151,8 @@ cd frontend; npm run dev                                           # UI: /reposi
 ```
 
 Checks: `cd backend; .\.venv\Scripts\python.exe -m ruff check .; .\.venv\Scripts\python.exe -m pytest` and `cd frontend; npm run typecheck; npm run lint; npm test; npm run build`
-(or `scripts\check-all.ps1`). Phase 03 tests: `tests/test_graph_intelligence.py` (29) and `src/test/intelligence.test.tsx` (11). The PowerShell commands were not executed on
-Windows (see `PROJECT_STATUS.md`).
+(or `scripts\check-all.ps1`). Tests: `tests/test_graph_intelligence.py` (29) and `src/test/intelligence.test.tsx` (11). The PowerShell commands were not executed on
+Windows.
 
 ## 8. Limits (honest list)
 
@@ -161,4 +161,4 @@ Windows (see `PROJECT_STATUS.md`).
 * File-level graph (dependencies, dependents, cycles, depth) uses `IMPORTS_FILE` only; a call without an import (for example via a global) has no edge.
 * `CALLS` edges are evidence of a *probable* call by name, not of execution.
 * Impact traversal stops at 5,000 nodes and depth 10; cycle analysis reads at most 500,000 edges.
-* Graph endpoints recompute per request (no cache). Measured at 3,000 files in the performance table in `VERIFICATION_LOG.md`.
+* Graph endpoints recompute per request (no cache). Measured at 3,000 files in `docs/performance/BENCHMARKS.md`.

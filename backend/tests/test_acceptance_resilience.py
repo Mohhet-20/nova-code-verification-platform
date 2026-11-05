@@ -1,4 +1,4 @@
-"""Phase 18 acceptance: failure injection in isolated databases/directories. Each case checks detection, accurate reporting, no leaked internals,
+"""Acceptance: failure injection in isolated databases/directories. Each case checks detection, accurate reporting, no leaked internals,
 consistent state and no false success."""
 from __future__ import annotations
 

@@ -1,4 +1,4 @@
-"""Dependency-aware impact of a planned transformation, using the existing import graph (Phase 03) and test association (Phase 07).
+"""Dependency-aware impact of a planned transformation, using the existing import graph and test association.
 
 All answers carry an explicit completeness statement: the graph reflects the last published index, so dependents added or removed
 since then are invisible. Import *module* edges are compared before/after from the file contents themselves, so "no new cycles" is

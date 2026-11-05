@@ -1,4 +1,4 @@
-"""Phase 10: change detection, planning, controlled execution, baselines, regression intelligence, quality gates, policy and API.
+"""Change detection, planning, controlled execution, baselines, regression intelligence, quality gates, policy and API.
 
 TestClient runs background tasks before it returns, so a started run is finished when the POST response has been delivered.
 """

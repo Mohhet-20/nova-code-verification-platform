@@ -1,1 +1,1 @@
-"""Phase 07: change-aware code review."""
+"""Change-aware code review."""

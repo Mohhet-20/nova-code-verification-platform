@@ -116,7 +116,7 @@ export function VerificationPage() {
   const ov = overview.data;
   return (
     <>
-      <PageHeader title="Continuous Verification Center" subtitle="Detect changes, plan checks, run them under the Phase 05 runner, compare with a baseline and read the quality-gate decision."
+      <PageHeader title="Continuous Verification Center" subtitle="Detect changes, plan checks, run them under the runner, compare with a baseline and read the quality-gate decision."
         actions={<ButtonLink to={`/repositories/${repositoryId}`} variant="secondary">Back to repository</ButtonLink>} />
       {overview.isLoading ? <Spinner label="Loading overview…" /> : overview.isError ? <ErrorState error={overview.error} onRetry={() => void overview.refetch()} /> : ov && (
         <Card title="Overview">
