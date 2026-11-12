@@ -1,23 +1,23 @@
 # Runtime dependencies (pinned to the verified versions)
-fastapi==0.143.5
+fastapi==0.162.2
 uvicorn[standard]==0.54.0
-pydantic==2.14.1
-pydantic-settings==2.16.0
-SQLAlchemy==2.1.5
-alembic==1.20.0
+pydantic==2.14.3
+pydantic-settings==2.16.2
+SQLAlchemy==2.1.8
+alembic==1.20.1
 pathspec==1.1.1
 # Structural parsing. Pre-built wheels exist for Windows, macOS and Linux on supported Python versions;
 # if one cannot be installed NOVA still runs and reports the affected languages as "parser unavailable".
-tree-sitter==0.26.0
+tree-sitter==0.26.1
 tree-sitter-python==0.25.0
 tree-sitter-javascript==0.25.0
 tree-sitter-typescript==0.23.2
 # Test engineering: measured line/branch coverage of approved test runs. If it is missing the coverage step
 # reports an exact blocker; nothing is estimated.
-coverage==7.16.2
+coverage==7.17.2
 # The restricted test runner executes `python -m pytest` with NOVA's own interpreter (NOVA_TEST_PYTHON overrides it), so pytest is a
 # runtime dependency of the test-execution, debugging-rerun and repair-verification features, not only of NOVA's own test suite.
-pytest==9.1.1
+pytest==9.2.0
 
 # Integrations: authenticated encryption (AES-256-GCM) for stored integration credentials.
 cryptography==50.0.2
